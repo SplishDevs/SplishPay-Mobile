@@ -1,0 +1,810 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* splishpayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* splishpayTests.m */; };
+		0C037B2ADF4D4666966D782C /* SFUIText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0F011EC4C26F4EB4B668335E /* SFUIText-RegularItalic.otf */; };
+		0FA0A41960F04AE8AA5B99F4 /* SFUIText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B026DAF9C5E34753824F9F60 /* SFUIText-Semibold.ttf */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1415A539708642878CEBF63C /* SFUIText-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 772B4210ECC045C2AD8EBDF4 /* SFUIText-MediumItalic.otf */; };
+		1730938026209028009DDE22 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1730937F26209028009DDE22 /* icomoon.ttf */; };
+		1B79FCC74F424FC382E566AE /* SFUIText-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D231FE6BCC4C4317A18D9D37 /* SFUIText-MediumItalic.ttf */; };
+		227CFEAFA604490CA55D9A03 /* SFUIText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6D8B4CF5A84B78A58FC561 /* SFUIText-Semibold.otf */; };
+		40069146C4484678937A1870 /* SFUIText-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3C3E9B463D71482E837A8664 /* SFUIText-SemiboldItalic.otf */; };
+		469C60E316374A1F899E1469 /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EEBE9BAECB444E5AD7CFE3D /* SFUIText-Light.ttf */; };
+		6194E23FA24E4AE3B8E8E2C7 /* SFUIText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C9C25C3D23342BF96D88075 /* SFUIText-SemiboldItalic.ttf */; };
+		6836FDE1D45380367F3491D7 /* libPods-splishpay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321D682D8DF6FB648A1D055C /* libPods-splishpay.a */; };
+		78F5B4C21AA44478B29E5E4E /* SFUIText-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72ED94AF77EB4DBEA4889FDC /* SFUIText-Heavy.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		85B391C8AB7A45FFB5A502FF /* SFUIText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AAA7C539BC3F40DD96C49434 /* SFUIText-Regular.otf */; };
+		885BD404885340DE81845963 /* SFUIText-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC27C3A3D1A7499C9A37B992 /* SFUIText-LightItalic.ttf */; };
+		89652B018FB6477A863BB880 /* SFUIText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 74973168562A497ABA62A43A /* SFUIText-Medium.otf */; };
+		9998CF8C9F894C34B4A974D3 /* SFUIText-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3EFAA08848A94D5B9F5ACC5E /* SFUIText-Heavy.otf */; };
+		9BA2ED5B7A6748518B0D8E75 /* SFUIText-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEF7605CB3924C8CB2A413D5 /* SFUIText-LightItalic.otf */; };
+		B4576E36B3AB4285AA79A54B /* SFUIText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22A5942FF1894DDE80E34454 /* SFUIText-Medium.ttf */; };
+		B8C1E85632BC43218F9A1FB2 /* SFUIText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4A09B9C22434B3687D8EE74 /* SFUIText-Italic.ttf */; };
+		CAE66B7D2087AE77C6D522E2 /* libPods-splishpay-splishpayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C29B3CB176D8AC39EDF6E46 /* libPods-splishpay-splishpayTests.a */; };
+		D19BA54465904DE7BD35AA5F /* SFUIText-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 87B68157C4FE4B388C4EC6E4 /* SFUIText-HeavyItalic.otf */; };
+		FE75E6D00D17429AB004EEAC /* SFUIText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3362739C7D8B46DDA6C02BE1 /* SFUIText-Light.otf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = splishpay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* splishpayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splishpayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* splishpayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = splishpayTests.m; sourceTree = "<group>"; };
+		0EEBE9BAECB444E5AD7CFE3D /* SFUIText-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Light.ttf"; path = "../assets/fonts/SFUIText-Light.ttf"; sourceTree = "<group>"; };
+		0F011EC4C26F4EB4B668335E /* SFUIText-RegularItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-RegularItalic.otf"; path = "../assets/fonts/SFUIText-RegularItalic.otf"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* splishpay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = splishpay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = splishpay/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = splishpay/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = splishpay/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = splishpay/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = splishpay/main.m; sourceTree = "<group>"; };
+		1730937F26209028009DDE22 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		17B8F595261B673200DC6BE2 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		17B8F596261B673200DC6BE2 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		17B8F597261B673200DC6BE2 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		17B8F598261B673200DC6BE2 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		17B8F599261B673200DC6BE2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		17B8F59A261B673200DC6BE2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		17B8F59B261B673200DC6BE2 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		17B8F59C261B673200DC6BE2 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		17B8F59D261B673200DC6BE2 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		17B8F59E261B673200DC6BE2 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		17B8F59F261B673200DC6BE2 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		17B8F5A0261B673200DC6BE2 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		17B8F5A1261B673200DC6BE2 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		17B8F5A2261B673200DC6BE2 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		17B8F5A3261B673200DC6BE2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		17B8F5A4261B673200DC6BE2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		22A5942FF1894DDE80E34454 /* SFUIText-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Medium.ttf"; path = "../assets/fonts/SFUIText-Medium.ttf"; sourceTree = "<group>"; };
+		321D682D8DF6FB648A1D055C /* libPods-splishpay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-splishpay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3362739C7D8B46DDA6C02BE1 /* SFUIText-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Light.otf"; path = "../assets/fonts/SFUIText-Light.otf"; sourceTree = "<group>"; };
+		3C3E9B463D71482E837A8664 /* SFUIText-SemiboldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-SemiboldItalic.otf"; path = "../assets/fonts/SFUIText-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		3EFAA08848A94D5B9F5ACC5E /* SFUIText-Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Heavy.otf"; path = "../assets/fonts/SFUIText-Heavy.otf"; sourceTree = "<group>"; };
+		4C9C25C3D23342BF96D88075 /* SFUIText-SemiboldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-SemiboldItalic.ttf"; path = "../assets/fonts/SFUIText-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		5E44099DFD02C2858BD0117C /* Pods-splishpay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splishpay.debug.xcconfig"; path = "Target Support Files/Pods-splishpay/Pods-splishpay.debug.xcconfig"; sourceTree = "<group>"; };
+		6C29B3CB176D8AC39EDF6E46 /* libPods-splishpay-splishpayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-splishpay-splishpayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72ED94AF77EB4DBEA4889FDC /* SFUIText-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Heavy.ttf"; path = "../assets/fonts/SFUIText-Heavy.ttf"; sourceTree = "<group>"; };
+		74973168562A497ABA62A43A /* SFUIText-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Medium.otf"; path = "../assets/fonts/SFUIText-Medium.otf"; sourceTree = "<group>"; };
+		772B4210ECC045C2AD8EBDF4 /* SFUIText-MediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-MediumItalic.otf"; path = "../assets/fonts/SFUIText-MediumItalic.otf"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = splishpay/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		83E2EF0C73D91324F230BDA5 /* Pods-splishpay-splishpayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splishpay-splishpayTests.debug.xcconfig"; path = "Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		87B68157C4FE4B388C4EC6E4 /* SFUIText-HeavyItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-HeavyItalic.otf"; path = "../assets/fonts/SFUIText-HeavyItalic.otf"; sourceTree = "<group>"; };
+		8C6D8B4CF5A84B78A58FC561 /* SFUIText-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Semibold.otf"; path = "../assets/fonts/SFUIText-Semibold.otf"; sourceTree = "<group>"; };
+		A04F3A35DC9743A6F6AFD355 /* Pods-splishpay-splishpayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splishpay-splishpayTests.release.xcconfig"; path = "Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests.release.xcconfig"; sourceTree = "<group>"; };
+		AAA7C539BC3F40DD96C49434 /* SFUIText-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Regular.otf"; path = "../assets/fonts/SFUIText-Regular.otf"; sourceTree = "<group>"; };
+		B026DAF9C5E34753824F9F60 /* SFUIText-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Semibold.ttf"; path = "../assets/fonts/SFUIText-Semibold.ttf"; sourceTree = "<group>"; };
+		B4A09B9C22434B3687D8EE74 /* SFUIText-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-Italic.ttf"; path = "../assets/fonts/SFUIText-Italic.ttf"; sourceTree = "<group>"; };
+		D231FE6BCC4C4317A18D9D37 /* SFUIText-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-MediumItalic.ttf"; path = "../assets/fonts/SFUIText-MediumItalic.ttf"; sourceTree = "<group>"; };
+		EC27C3A3D1A7499C9A37B992 /* SFUIText-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-LightItalic.ttf"; path = "../assets/fonts/SFUIText-LightItalic.ttf"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EEF7605CB3924C8CB2A413D5 /* SFUIText-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIText-LightItalic.otf"; path = "../assets/fonts/SFUIText-LightItalic.otf"; sourceTree = "<group>"; };
+		F914B9AD36066F21F716BA0C /* Pods-splishpay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-splishpay.release.xcconfig"; path = "Target Support Files/Pods-splishpay/Pods-splishpay.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAE66B7D2087AE77C6D522E2 /* libPods-splishpay-splishpayTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6836FDE1D45380367F3491D7 /* libPods-splishpay.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* splishpayTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* splishpayTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = splishpayTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* splishpay */ = {
+			isa = PBXGroup;
+			children = (
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = splishpay;
+			sourceTree = "<group>";
+		};
+		17B8F594261B673200DC6BE2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				17B8F595261B673200DC6BE2 /* Fontisto.ttf */,
+				17B8F596261B673200DC6BE2 /* Octicons.ttf */,
+				1730937F26209028009DDE22 /* icomoon.ttf */,
+				17B8F597261B673200DC6BE2 /* Feather.ttf */,
+				17B8F598261B673200DC6BE2 /* Entypo.ttf */,
+				17B8F599261B673200DC6BE2 /* FontAwesome5_Brands.ttf */,
+				17B8F59A261B673200DC6BE2 /* MaterialCommunityIcons.ttf */,
+				17B8F59B261B673200DC6BE2 /* AntDesign.ttf */,
+				17B8F59C261B673200DC6BE2 /* Foundation.ttf */,
+				17B8F59D261B673200DC6BE2 /* Ionicons.ttf */,
+				17B8F59E261B673200DC6BE2 /* FontAwesome5_Solid.ttf */,
+				17B8F59F261B673200DC6BE2 /* FontAwesome5_Regular.ttf */,
+				17B8F5A0261B673200DC6BE2 /* FontAwesome.ttf */,
+				17B8F5A1261B673200DC6BE2 /* Zocial.ttf */,
+				17B8F5A2261B673200DC6BE2 /* EvilIcons.ttf */,
+				17B8F5A3261B673200DC6BE2 /* SimpleLineIcons.ttf */,
+				17B8F5A4261B673200DC6BE2 /* MaterialIcons.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				321D682D8DF6FB648A1D055C /* libPods-splishpay.a */,
+				6C29B3CB176D8AC39EDF6E46 /* libPods-splishpay-splishpayTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				17B8F594261B673200DC6BE2 /* Fonts */,
+				13B07FAE1A68108700A75B9A /* splishpay */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* splishpayTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				90AEC0D56AF5DA6320855808 /* Pods */,
+				B5ABC53F50E44454A07C31EF /* Resources */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* splishpay.app */,
+				00E356EE1AD99517003FC87E /* splishpayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90AEC0D56AF5DA6320855808 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E44099DFD02C2858BD0117C /* Pods-splishpay.debug.xcconfig */,
+				F914B9AD36066F21F716BA0C /* Pods-splishpay.release.xcconfig */,
+				83E2EF0C73D91324F230BDA5 /* Pods-splishpay-splishpayTests.debug.xcconfig */,
+				A04F3A35DC9743A6F6AFD355 /* Pods-splishpay-splishpayTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B5ABC53F50E44454A07C31EF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3EFAA08848A94D5B9F5ACC5E /* SFUIText-Heavy.otf */,
+				72ED94AF77EB4DBEA4889FDC /* SFUIText-Heavy.ttf */,
+				87B68157C4FE4B388C4EC6E4 /* SFUIText-HeavyItalic.otf */,
+				B4A09B9C22434B3687D8EE74 /* SFUIText-Italic.ttf */,
+				3362739C7D8B46DDA6C02BE1 /* SFUIText-Light.otf */,
+				0EEBE9BAECB444E5AD7CFE3D /* SFUIText-Light.ttf */,
+				EEF7605CB3924C8CB2A413D5 /* SFUIText-LightItalic.otf */,
+				EC27C3A3D1A7499C9A37B992 /* SFUIText-LightItalic.ttf */,
+				74973168562A497ABA62A43A /* SFUIText-Medium.otf */,
+				22A5942FF1894DDE80E34454 /* SFUIText-Medium.ttf */,
+				772B4210ECC045C2AD8EBDF4 /* SFUIText-MediumItalic.otf */,
+				D231FE6BCC4C4317A18D9D37 /* SFUIText-MediumItalic.ttf */,
+				AAA7C539BC3F40DD96C49434 /* SFUIText-Regular.otf */,
+				0F011EC4C26F4EB4B668335E /* SFUIText-RegularItalic.otf */,
+				8C6D8B4CF5A84B78A58FC561 /* SFUIText-Semibold.otf */,
+				B026DAF9C5E34753824F9F60 /* SFUIText-Semibold.ttf */,
+				3C3E9B463D71482E837A8664 /* SFUIText-SemiboldItalic.otf */,
+				4C9C25C3D23342BF96D88075 /* SFUIText-SemiboldItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* splishpayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "splishpayTests" */;
+			buildPhases = (
+				01C2C838E8FD4769BE5CCFB1 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				634219803257AD5D947D3189 /* [CP] Embed Pods Frameworks */,
+				73B0D6B7E71DD39D2BB9303C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = splishpayTests;
+			productName = splishpayTests;
+			productReference = 00E356EE1AD99517003FC87E /* splishpayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* splishpay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "splishpay" */;
+			buildPhases = (
+				4513282A9119857C85F5A487 /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				E6D45EDBD074BDC0B7C8C799 /* [CP] Embed Pods Frameworks */,
+				494869F7CE0F1629D749BAC5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = splishpay;
+			productName = splishpay;
+			productReference = 13B07F961A680F5B00A75B9A /* splishpay.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "splishpay" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* splishpay */,
+				00E356ED1AD99517003FC87E /* splishpayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				9998CF8C9F894C34B4A974D3 /* SFUIText-Heavy.otf in Resources */,
+				78F5B4C21AA44478B29E5E4E /* SFUIText-Heavy.ttf in Resources */,
+				D19BA54465904DE7BD35AA5F /* SFUIText-HeavyItalic.otf in Resources */,
+				B8C1E85632BC43218F9A1FB2 /* SFUIText-Italic.ttf in Resources */,
+				FE75E6D00D17429AB004EEAC /* SFUIText-Light.otf in Resources */,
+				469C60E316374A1F899E1469 /* SFUIText-Light.ttf in Resources */,
+				9BA2ED5B7A6748518B0D8E75 /* SFUIText-LightItalic.otf in Resources */,
+				885BD404885340DE81845963 /* SFUIText-LightItalic.ttf in Resources */,
+				89652B018FB6477A863BB880 /* SFUIText-Medium.otf in Resources */,
+				B4576E36B3AB4285AA79A54B /* SFUIText-Medium.ttf in Resources */,
+				1415A539708642878CEBF63C /* SFUIText-MediumItalic.otf in Resources */,
+				1B79FCC74F424FC382E566AE /* SFUIText-MediumItalic.ttf in Resources */,
+				85B391C8AB7A45FFB5A502FF /* SFUIText-Regular.otf in Resources */,
+				1730938026209028009DDE22 /* icomoon.ttf in Resources */,
+				0C037B2ADF4D4666966D782C /* SFUIText-RegularItalic.otf in Resources */,
+				227CFEAFA604490CA55D9A03 /* SFUIText-Semibold.otf in Resources */,
+				0FA0A41960F04AE8AA5B99F4 /* SFUIText-Semibold.ttf in Resources */,
+				40069146C4484678937A1870 /* SFUIText-SemiboldItalic.otf in Resources */,
+				6194E23FA24E4AE3B8E8E2C7 /* SFUIText-SemiboldItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		01C2C838E8FD4769BE5CCFB1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-splishpay-splishpayTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4513282A9119857C85F5A487 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-splishpay-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		494869F7CE0F1629D749BAC5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		634219803257AD5D947D3189 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73B0D6B7E71DD39D2BB9303C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-splishpay-splishpayTests/Pods-splishpay-splishpayTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6D45EDBD074BDC0B7C8C799 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-splishpay/Pods-splishpay-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* splishpayTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* splishpay */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83E2EF0C73D91324F230BDA5 /* Pods-splishpay-splishpayTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = splishpayTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/splishpay.app/splishpay";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A04F3A35DC9743A6F6AFD355 /* Pods-splishpay-splishpayTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = splishpayTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/splishpay.app/splishpay";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E44099DFD02C2858BD0117C /* Pods-splishpay.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = splishpay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = splishpay;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F914B9AD36066F21F716BA0C /* Pods-splishpay.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = splishpay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = splishpay;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "splishpayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "splishpay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "splishpay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
