@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 
-import React, {useEffect} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet, useColorScheme, View} from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './src/screen/onboarding';
@@ -27,9 +27,20 @@ import SendMoney from './src/screen/wallet/SendMoney';
 import Notification from './src/screen/notification';
 import Transaction from './src/screen/transaction';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import Loading from './src/Loading';
+import FlashMessage from 'react-native-flash-message';
+
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+
+import reducers from './src/reducers';
+
 const Stack = createStackNavigator();
 
 const TabNavigator = createBottomTabNavigator();
+
+const store = createStore(reducers, applyMiddleware(thunk));
 
 const HomeStack = function () {
   return (
@@ -114,80 +125,90 @@ const ChargeScreen = function () {
 };
 
 const App = () => {
+  const myLocalFlashMessage = useRef();
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="onBoarding">
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="onBoarding"
-          component={Onboarding}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="register"
-          component={Register}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="login"
-          component={Login}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="businessDetailRegister"
-          component={BusinessDetailsRegister}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="BVNRegister"
-          component={BVNRegistration}
-        />
-        <Stack.Screen
-          name="cashSuccess"
-          options={{headerShown: false}}
-          component={CashSuccess}
-        />
-        <Stack.Screen
-          name="bankSuccess"
-          options={{headerShown: false}}
-          component={BankChargeSuccess}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="setupComplete"
-          component={SetupComplete}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="appHome"
-          component={AppHome}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="chargeScreen"
-          component={ChargeScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="fundWallet"
-          component={FundWallet}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="sendMoney"
-          component={SendMoney}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="notification"
-          component={Notification}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="onBoarding">
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="onBoarding"
+            component={Onboarding}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="register"
+            component={Register}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="login"
+            component={Login}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="businessDetailRegister"
+            component={BusinessDetailsRegister}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="BVNRegister"
+            component={BVNRegistration}
+          />
+          <Stack.Screen
+            name="cashSuccess"
+            options={{headerShown: false}}
+            component={CashSuccess}
+          />
+          <Stack.Screen
+            name="bankSuccess"
+            options={{headerShown: false}}
+            component={BankChargeSuccess}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="setupComplete"
+            component={SetupComplete}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="appHome"
+            component={AppHome}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="chargeScreen"
+            component={ChargeScreen}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="fundWallet"
+            component={FundWallet}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="sendMoney"
+            component={SendMoney}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="notification"
+            component={Notification}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Loading />
+      <FlashMessage
+        hideOnPress
+        duration={4000}
+        position="top"
+        ref={myLocalFlashMessage.current}
+      />
+    </Provider>
   );
 };
 

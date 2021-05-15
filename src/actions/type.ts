@@ -1,0 +1,5 @@
+export enum ActionType {
+  CONNECTION_SUCCESS,
+  START_LOADING,
+  STOP_LOADING,
+}

@@ -35,7 +35,7 @@ const Record: React.FC<Props> = function ({navigation}) {
       <KeyboardAvoidingView style={{flex: 1}} behavior={'height'}>
         <ScrollView
           contentContainerStyle={{flexGrow: 1}}
-          style={{flex: 1, backgroundColor: '#fff'}}>
+          style={{backgroundColor: '#fff'}}>
           <View>
             <Text style={styles.titleHeader}>Record Transaction</Text>
           </View>
@@ -72,7 +72,7 @@ const Record: React.FC<Props> = function ({navigation}) {
               <Ionicons name="pencil-outline" size={24} />
             </View>
             <View style={{flex: 3, marginLeft: 8}}>
-              <TextInput style={{flex: 1}} />
+              <TextInput style={{flex: 1, textAlign: 'center'}} />
             </View>
             {/* <View style={{flex: 3}}></View> */}
           </View>
