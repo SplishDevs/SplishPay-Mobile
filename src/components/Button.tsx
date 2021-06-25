@@ -1,5 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, ViewStyle} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+  View,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../util/Colors';
 // import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -11,6 +19,9 @@ interface Props {
   iconName?: string;
   iconColor?: string;
   styles?: ViewStyle;
+  textStyles?: TextStyle;
+  isLoading?: boolean;
+  spinnerColor?: string;
 }
 
 const Button: React.FC<Props> = props => {
@@ -26,6 +37,14 @@ const Button: React.FC<Props> = props => {
           : {...styles.containerStyle, ...props.styles}
       }
       onPress={props.onPress}>
+      {props.isLoading ? (
+        <View style={{marginRight: 10}}>
+          <ActivityIndicator
+            size="large"
+            color={props.spinnerColor ? props.spinnerColor : Colors.WHITE}
+          />
+        </View>
+      ) : null}
       {props.iconName && (
         <Ionicons
           name={props.iconName}
@@ -36,8 +55,8 @@ const Button: React.FC<Props> = props => {
       <Text
         style={
           props.textColor
-            ? {...styles.textStyle, color: props.textColor}
-            : styles.textStyle
+            ? {...styles.textStyle, color: props.textColor, ...props.textStyles}
+            : {...styles.textStyle, ...props.textStyles}
         }>
         {props.text}
       </Text>

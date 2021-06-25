@@ -1,5 +1,5 @@
 import {Text} from 'native-base';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -13,12 +13,17 @@ import {
 } from 'react-native';
 import Button from '../../components/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Colors} from '../../util/Colors';
+import {connect} from 'react-redux';
+import * as actions from '../../actions';
 
 interface Props {
   navigation: any;
+  cart: any;
+  getCart: Function;
 }
 
-const Record: React.FC<Props> = function ({navigation}) {
+const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
   const [amount, setAmount] = useState<string[]>([]);
   const handleDelete = () => {
     setAmount(amount => {
@@ -26,6 +31,18 @@ const Record: React.FC<Props> = function ({navigation}) {
       return [...amount];
     });
   };
+  const getCartItems = async () => {
+    try {
+      await getCart();
+      setNumberOfItemsInCart(cart.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getCartItems();
+  }, [cart.length]);
+  const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(cart.length);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -186,6 +203,37 @@ const Record: React.FC<Props> = function ({navigation}) {
             />
           </View>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('items', {
+              screen: 'purchasePage',
+            });
+          }}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 16,
+            paddingBottom: 16,
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Ionicons name="cart-outline" size={32} color={Colors.BLACK} />
+            <Text
+              style={{
+                fontFamily: 'SFUIText-Regular',
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginLeft: 4,
+              }}>
+              CART({numberOfItemsInCart})
+            </Text>
+          </View>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={32}
+            color={Colors.BLACK}
+          />
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -232,4 +280,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Record;
+const mapStateToProps = (state: any) => {
+  const {
+    product: {cart},
+  } = state;
+  console.log('cart length: ', cart);
+  return {cart};
+};
+
+export default connect(mapStateToProps, actions)(Record);

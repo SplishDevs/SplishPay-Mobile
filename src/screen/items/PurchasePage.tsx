@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
   TouchableWithoutFeedback,
   Platform,
-  Image,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
 import Button from '../../components/Button';
 import TitleText from '../../components/TitleText';
+import helpers from '../../helpers';
+import * as actions from '../../actions';
+import {Colors} from '../../util/Colors';
+import {Image} from 'react-native-elements';
 
 const bankIcon = require('../../../assets/images/bank.png');
 const hardwareIcon = require('../../../assets/images/hardware.png');
@@ -29,6 +34,8 @@ enum PaymentMethod {
 
 interface Props {
   navigation: any;
+  getCart: Function;
+  cart: any[];
 }
 
 interface PaymentRowProps {
@@ -183,7 +190,7 @@ const DropDown: React.FC<DropDownProps> = ({
   );
 };
 
-const Charge: React.FC<Props> = ({navigation}) => {
+const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
   const [selectedPaymentMethod, onPaymentChange] = useState<PaymentMethod>(
     PaymentMethod.BANK_TRANSFER,
   );
@@ -197,6 +204,79 @@ const Charge: React.FC<Props> = ({navigation}) => {
         break;
     }
   };
+  const [userName, setUserName] = useState('');
+  const [transactionDate, setTransactionDate] = useState('');
+  const [cartItems, setCart] = useState<any[]>([]);
+  const getUserName = async () => {
+    try {
+      const name = await helpers.getUserName();
+      setUserName(name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUserName();
+  }, []);
+  useEffect(() => {
+    const date = new Date().toDateString();
+    setTransactionDate(date);
+  }, []);
+  const getCartItems = async () => {
+    try {
+      await getCart();
+      setCart((state: any[]) => [...cart]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const renderCartItems = () => {
+    return cart.map(item => (
+      <View key={item.id}>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            source={{uri: item.mainImageUrl}}
+            containerStyle={{borderRadius: 8}}
+            resizeMethod="scale"
+            resizeMode="cover"
+            style={{width: 64, height: 64}}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+          <View style={{flex: 1, marginLeft: 8}}>
+            <TitleText
+              styles={{fontWeight: 'bold', fontSize: 20}}
+              text={item.name}
+            />
+            <TitleText
+              styles={{fontWeight: 'bold', fontSize: 20}}
+              text={`N ${helpers.formatAsMoney(
+                isNaN(item.price) ? '10000' : item.price,
+              )}`}
+            />
+          </View>
+        </View>
+      </View>
+    ));
+  };
+  const renderTotal = () => {
+    const sum = cart.reduce(
+      (total, item) =>
+        (total += isNaN(item.price)
+          ? 10000 * Number(item.quantity)
+          : Number(item.price) * Number(item.quantity)),
+      0,
+    );
+
+    return (
+      <TitleText
+        styles={{fontWeight: 'bold', fontSize: 18}}
+        text={`N ${helpers.formatAsMoney(`${sum}`)}`}
+      />
+    );
+  };
+  useEffect(() => {
+    getCartItems();
+  }, [cart.length]);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -209,7 +289,7 @@ const Charge: React.FC<Props> = ({navigation}) => {
             <Ionicons name="chevron-back-outline" size={32} />
           </TouchableOpacity>
           <View style={styles.headerTitle}>
-            <Text style={styles.headerText}>Record Transaction</Text>
+            <Text style={styles.headerText}>Sell Now</Text>
           </View>
         </View>
         <View style={{flex: 1, justifyContent: 'center'}}>
@@ -217,7 +297,7 @@ const Charge: React.FC<Props> = ({navigation}) => {
             <Ionicons name="person-circle-outline" size={48} />
           </View>
           <View style={{marginBottom: 10, alignItems: 'center'}}>
-            <TitleText text="Luxury Fit Nig" />
+            <TitleText text={userName} />
             <Text style={{color: '#808080'}}>Admin</Text>
           </View>
           <View
@@ -228,33 +308,47 @@ const Charge: React.FC<Props> = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <Text style={{color: '#808080'}}>Transaction On </Text>
-            <Text style={{fontFamily: 'SFUIText-Regular'}}>NOV 9th 2020</Text>
-          </View>
-          <View
-            style={{
-              marginBottom: 10,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Text style={{color: '#808080'}}>Note </Text>
-            <Text style={{fontFamily: 'SFUIText-Regular'}}>Phone</Text>
-          </View>
-          <View
-            style={{
-              marginBottom: 10,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                fontFamily: 'SFUIText-Regular',
-                color: '#1479f6',
-                fontSize: 24,
-              }}>
-              2,500
+            <Text style={{fontFamily: 'SFUIText-Regular'}}>
+              {transactionDate}
             </Text>
+          </View>
+          <View
+            style={{
+              marginBottom: 10,
+              borderBottomWidth: 1,
+              borderColor: Colors.GRAY_1,
+              paddingBottom: 20,
+            }}>
+            {renderCartItems()}
+          </View>
+          <View
+            style={{
+              marginVertical: 10,
+
+              flexDirection: 'row',
+            }}>
+            <View style={{marginRight: 16}}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.BLACK,
+                  borderColor: Colors.BLACK,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 8,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={() => {}}>
+                <Ionicons name="cart-outline" size={24} color={Colors.WHITE} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TitleText
+                styles={{fontWeight: '400', fontSize: 16}}
+                text="Total"
+              />
+              {renderTotal()}
+            </View>
           </View>
           {getConnectStatus(selectedPaymentMethod)}
         </View>
@@ -274,7 +368,7 @@ const Charge: React.FC<Props> = ({navigation}) => {
                 onPaymentChange(method);
               }}
             />
-            <View style={{height: 40, marginVertical: 16}}>
+            <View style={{height: 50, marginVertical: 16}}>
               <Button
                 backgroundColor={
                   selectedPaymentMethod === PaymentMethod.HARDWARE
@@ -356,6 +450,13 @@ const getConnectStatus = (paymentMethod: PaymentMethod) => {
   }
 };
 
+const mapStateToProps = (state: any) => {
+  const {
+    product: {cart},
+  } = state;
+  return {cart};
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -419,4 +520,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Charge;
+export default connect(mapStateToProps, actions)(PurchasePage);

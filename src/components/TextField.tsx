@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, TextStyle} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../util/Colors';
 
@@ -14,11 +21,19 @@ interface Props {
   backgroundColor?: Colors;
   labelColor?: Colors;
   inputStyle?: TextStyle;
+  editable?: boolean;
+  autoFocus?: boolean;
+  value?: string;
+  containerStyle?: ViewStyle;
 }
 
-const TextField: React.FC<Props> = props => {
+const TextField: React.FC<Props> = ({
+  editable = true,
+  autoFocus = false,
+  ...props
+}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       {props.labelName && (
         <View>
           <Text
@@ -34,8 +49,14 @@ const TextField: React.FC<Props> = props => {
       <View
         style={
           props.backgroundColor
-            ? {...styles.inputContainer, backgroundColor: props.backgroundColor}
-            : styles.inputContainer
+            ? [
+                {
+                  ...styles.inputContainer,
+                  backgroundColor: props.backgroundColor,
+                },
+                props.containerStyle,
+              ]
+            : [styles.inputContainer, props.containerStyle]
         }>
         <View style={styles.inputWrapper}>
           {props.iconName && (
@@ -47,11 +68,14 @@ const TextField: React.FC<Props> = props => {
           )}
           <View style={{marginLeft: 8, flex: 1}}>
             <TextInput
+              autoFocus={autoFocus}
+              editable={editable}
               onChangeText={props.onChange}
               autoCapitalize="none"
               placeholder={props.placeholder ? props.placeholder : ''}
               keyboardType={props.keyboardType ? props.keyboardType : 'default'}
               secureTextEntry={props.obscureText}
+              value={props?.value}
               style={
                 props.color
                   ? {color: props.color, width: '100%', ...props.inputStyle}

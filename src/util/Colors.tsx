@@ -7,7 +7,7 @@ export enum Colors {
   BLUE = '#007AFF',
   RED = '#FF7266',
   BACKGROUND_COLOR = '#FAFAFA',
-  GREEN = '#37B733',
+  GREEN = '#32BA30',
   YELLOW = '#FFE569',
   PURPLE = '#390280',
   WALLET_PURPLE = '#393669',
@@ -15,4 +15,6 @@ export enum Colors {
   DARK_BLUE = '#1B1854',
   COLOR_CREDIT = '#57bb32',
   COLOR_DEBIT = '#ee514b',
+  GREY_4 = '#E7E7E7',
+  LIGHT_BLUE = '#E6F2FF',
 }

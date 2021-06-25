@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Platform,
@@ -11,6 +11,8 @@ import {
 import TextField from '../../components/TextField';
 import TitleText from '../../components/TitleText';
 import Button from '../../components/Button';
+import helpers from '../../helpers';
+import http_service from '../../http_service';
 
 const backgroundImage = require('../../../assets/images/bg2.jpg');
 const splishPay = require('../../../assets/images/splishpay.png');
@@ -34,6 +36,30 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const handleLoginPress = async () => {
+    try {
+      if (email.trim() === '' || password.trim() === '') {
+        return helpers.dispayMessage({
+          message: 'Validation failed',
+          icon: 'info',
+          type: 'info',
+          description: 'Please provide email address and password',
+        });
+      }
+      setIsLoading(true);
+      const response: any = await http_service.login({email, password});
+      await helpers.setItem('xxx-token', response.token);
+      await helpers.setItem('xxx-user', JSON.stringify(response.user));
+      setIsLoading(false);
+      navigation.navigate('appHome');
+    } catch (error) {
+      setIsLoading(false);
+      helpers.catchHttpError(error);
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -53,19 +79,25 @@ const Login: React.FC<Props> = ({navigation}) => {
               color="#808080"
               iconName="mail-outline"
               labelName="Email"
+              onChange={text => setEmail(text)}
+              value={email}
             />
             <TextField
               color="#808080"
               iconName="lock-closed-outline"
               labelName="Password"
+              obscureText
+              onChange={text => setPassword(text)}
+              value={password}
             />
           </View>
         </View>
         <View style={styles.buttonWrapper}>
-          <View style={styles.buttonContainer}>
+          <View style={[styles.buttonContainer, {height: 50}]}>
             <Button
+              isLoading={isLoading}
               text="Log In"
-              onPress={() => navigation.navigate('appHome')}
+              onPress={handleLoginPress}
             />
           </View>
         </View>

@@ -1,3 +1,4 @@
+import {NavigationContainer} from '@react-navigation/native';
 import {Tab, TabHeading, Tabs, Text} from 'native-base';
 import React from 'react';
 import {
@@ -8,9 +9,12 @@ import {
   StatusBar,
   StatusBarIOS,
   StyleSheet,
+  TextStyle,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
+import {TextSpecificProps} from 'react-native-svg';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Indicator from '../../components/Indicator';
 import TextField from '../../components/TextField';
@@ -21,253 +25,108 @@ interface IProps {
   navigation: any;
 }
 
-const Transaction: React.FC<IProps> = ({navigation}) => {
-  const handleInputFieldTap = () => {
-    navigation.navigate('transactionSearchScreen');
-  };
+const TransactionSearchScreen: React.FC<IProps> = ({navigation}) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.WHITE}}>
       <StatusBar barStyle={'dark-content'} backgroundColor={Colors.WHITE} />
       <ScrollView
         contentContainerStyle={{flexGrow: 1}}
         style={{
-          backgroundColor: Colors.BACKGROUND_COLOR,
+          backgroundColor: Colors.WHITE,
           paddingHorizontal: 16,
           paddingVertical: 16,
         }}>
-        <TitleText
+        {/* <TitleText
           text="Transactions"
           styles={{textAlign: 'center', fontWeight: 'normal', fontSize: 18}}
-        />
-        <View style={{marginTop: 10}}>
-          <Pressable onPress={handleInputFieldTap}>
+        /> */}
+        <View style={{flexDirection: 'row', alignContent: 'center'}}>
+          <View style={{flex: 1}}>
             <TextField
-              editable={false}
+              autoFocus
               iconName="search-outline"
-              placeholder="Search"
-              inputStyle={{width: '100%'}}
+              placeholder="search transactions"
             />
-          </Pressable>
+          </View>
+          <View
+            style={{marginLeft: 8, marginTop: -8, justifyContent: 'center'}}>
+            <Pressable onPress={() => navigation.goBack()}>
+              <TitleText
+                text="Cancel"
+                styles={{fontSize: 18, color: '#878787'}}
+              />
+            </Pressable>
+          </View>
         </View>
         {/* <View></View> */}
-
-        <Tabs
-          style={{backgroundColor: Colors.BLACK, elevation: 0}}
-          tabBarBackgroundColor={Colors.BLACK}
-          //   tabBarBackgroundColor={Colors.GRAY_1}
-          tabBarUnderlineStyle={{
-            height: 2,
-            backgroundColor: Colors.BLUE,
-          }}
-          tabContainerStyle={{
-            backgroundColor: Colors.BLUE,
-            elevation: 0,
-            borderWidth: 0,
-            borderBottomWidth: 0.5,
-            borderBottomColor: Colors.GRAY_1,
-          }}
-          tabBarActiveTextColor={Colors.GRAY_1}
-          tabBarTextStyle={{
-            fontFamily: 'SFUIText-Regular',
-            backgroundColor: Colors.RED,
+        <View
+          style={{
+            flexWrap: 'wrap',
+            flexDirection: 'row',
           }}>
-          <Tab
-            tabStyle={{flex: 1, borderBottomWidth: 0}}
-            heading={
-              <TabHeading
-                style={{
-                  backgroundColor: Colors.BACKGROUND_COLOR,
-                  borderBottomWidth: 0,
-                  borderWidth: 0,
-                }}>
-                <Text
-                  style={{
-                    fontFamily: 'SFUIText-Regular',
-                    color: Colors.BLACK,
-                  }}>
-                  All
-                </Text>
-              </TabHeading>
-            }>
-            <ScrollView
-              contentContainerStyle={{flexGrow: 1}}
-              style={{
-                backgroundColor: Colors.BACKGROUND_COLOR,
-                paddingTop: 16,
-              }}>
-              <TitleText
-                text="Today"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Yesterday"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Other Days"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-            </ScrollView>
-          </Tab>
-          <Tab
-            heading={
-              <TabHeading style={{backgroundColor: Colors.BACKGROUND_COLOR}}>
-                <Indicator isActive={false} backgroundColor={Colors.GREEN} />
-                <Text
-                  style={{
-                    fontFamily: 'SFUIText-Regular',
-                    color: Colors.BLACK,
-                  }}>
-                  Successful
-                </Text>
-              </TabHeading>
-            }>
-            <ScrollView
-              contentContainerStyle={{flexGrow: 1}}
-              style={{
-                backgroundColor: Colors.BACKGROUND_COLOR,
-                paddingTop: 16,
-              }}>
-              <TitleText
-                text="Today"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Yesterday"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Other Days"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-            </ScrollView>
-          </Tab>
-          <Tab
-            heading={
-              <TabHeading style={{backgroundColor: Colors.BACKGROUND_COLOR}}>
-                <Indicator isActive={false} backgroundColor={Colors.YELLOW} />
-                <Text
-                  style={{
-                    fontFamily: 'SFUIText-Regular',
-                    color: Colors.BLACK,
-                  }}>
-                  Pending
-                </Text>
-              </TabHeading>
-            }>
-            <ScrollView
-              contentContainerStyle={{flexGrow: 1}}
-              style={{
-                backgroundColor: Colors.BACKGROUND_COLOR,
-                paddingTop: 16,
-              }}>
-              <TitleText
-                text="Today"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Yesterday"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Other Days"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-            </ScrollView>
-          </Tab>
-        </Tabs>
+          <Buttons
+            text="Cash"
+            backgroundColor="#EBF8EA"
+            textColor={Colors.LEMON_GREEN}
+          />
+          <Buttons
+            backgroundColor="#EBE6F2"
+            textColor={Colors.PURPLE}
+            text="Bank Tranfer"
+          />
+          <Buttons
+            backgroundColor="#E6F2FF"
+            textColor="#007AFF"
+            text="Hardware"
+          />
+          <Buttons
+            backgroundColor="#E7E7E7"
+            textColor="#0F0F0F"
+            text="Custom Date"
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+interface IButtonProps {
+  text: string;
+  textColor?: string;
+  backgroundColor?: string;
+  viewStyle?: ViewStyle;
+  textStyle?: TextStyle;
+}
+const Buttons: React.FC<IButtonProps> = ({
+  text,
+  textColor,
+  backgroundColor,
+  viewStyle,
+  textStyle,
+}) => {
+  return (
+    <View
+      style={{
+        paddingHorizontal: 10,
+        borderColor: `${backgroundColor ? backgroundColor : Colors.GRAY_1}`,
+        borderWidth: 1,
+        paddingVertical: 10,
+        borderRadius: 10,
+
+        marginRight: 8,
+        marginBottom: 8,
+        backgroundColor: `${backgroundColor ? backgroundColor : Colors.GRAY_1}`,
+        ...viewStyle,
+      }}>
+      <Text
+        style={{
+          fontFamily: 'SFUIText-Regular',
+          color: `${textColor ? textColor : Colors.GRAY_1}`,
+          ...textStyle,
+        }}>
+        {text}
+      </Text>
+    </View>
   );
 };
 
@@ -520,4 +379,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Transaction;
+export default TransactionSearchScreen;

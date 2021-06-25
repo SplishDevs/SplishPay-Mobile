@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -14,10 +14,103 @@ import Button from '../../components/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationContainer} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import * as actions from '../../actions';
+import helpers from '../../helpers';
+import http_service from '../../http_service';
+
 interface Props {
   navigation: any;
+  fullname: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  companyName: string;
+  cacRegistrationNumber: string;
+  companyEmail: string;
+  companyContact: string;
+  companyAddress: string;
+  interestedInHardware: boolean;
+  state: string;
 }
-const BVNRegistration: React.FC<Props> = ({navigation}) => {
+const BVNRegistration: React.FC<Props> = ({
+  navigation,
+  fullname,
+  email,
+  phoneNumber,
+  password,
+  companyName,
+  cacRegistrationNumber,
+  companyEmail,
+  companyContact,
+  companyAddress,
+  interestedInHardware,
+  state,
+}) => {
+  const [nin, setNIN] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const handleOnFinish = async () => {
+    try {
+      setIsLoading(true);
+      if (!isNaN(Number(nin))) {
+        return helpers.dispayMessage({
+          message: 'Validation failed',
+          description:
+            'Invalid NIN, alphanumberic characters not allowed. Only Numbers are allowed',
+          icon: 'info',
+          type: 'info',
+        });
+      }
+      const response: any = await http_service.registerAccount({
+        fullname,
+        email,
+        phoneNumber,
+        password,
+        companyName,
+        cacRegistrationNumber,
+        companyEmail,
+        companyContact,
+        companyAddress,
+        interestedInHardware,
+        state,
+        nin,
+      });
+
+      await helpers.setItem('xxx-token', response.token);
+      await helpers.setItem('xxx-user', JSON.stringify(response.user));
+      setIsLoading(false);
+      return navigation.navigate('setupComplete');
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      helpers.catchHttpError(error);
+    }
+  };
+  const handleSkipPress = async () => {
+    try {
+      const response: any = await http_service.registerAccount({
+        fullname,
+        email,
+        phoneNumber,
+        password,
+        companyName,
+        cacRegistrationNumber,
+        companyEmail,
+        companyContact,
+        companyAddress,
+        interestedInHardware,
+        state,
+      });
+      setIsLoading(true);
+      await helpers.setItem('xxx-token', response.token);
+      await helpers.setItem('xxx-user', JSON.stringify(response.user));
+      setIsLoading(false);
+      setIsLoading(false);
+      navigation.navigate('setupComplete');
+    } catch (error) {
+      helpers.catchHttpError(error);
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -27,22 +120,21 @@ const BVNRegistration: React.FC<Props> = ({navigation}) => {
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
           <TitleText text="Business Details" color="#fff" />
-          <TouchableOpacity
-            onPress={() => navigation.navigate('setupComplete')}>
+          <TouchableOpacity onPress={handleSkipPress}>
             <View style={styles.skipContainer}>
               <Text style={styles.skipText}>Skip</Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={[styles.mt10]}>
-          <Text style={[styles.textWhite]}>We use your BVN to ensure your</Text>
+          <Text style={[styles.textWhite]}>We use your NIN to ensure your</Text>
           <Text style={[styles.textWhite, styles.mt4]}>
             account belongs to you
           </Text>
         </View>
         <View style={[styles.mt10]}>
           <Text style={[styles.textWhite, styles.bvnLabelStyle]}>
-            Bank Verification Number [11-digits]
+            NIN Verification Number [11-digits]
           </Text>
           <View style={[styles.mt10]}>
             <TextInput
@@ -53,6 +145,8 @@ const BVNRegistration: React.FC<Props> = ({navigation}) => {
                 fontSize: 18,
                 color: '#fff',
               }}
+              value={nin}
+              onChangeText={text => setNIN(text)}
               selectionColor="#fff"
             />
             <Text style={[styles.mt4, styles.textWhite, styles.smallCaption]}>
@@ -119,12 +213,13 @@ const BVNRegistration: React.FC<Props> = ({navigation}) => {
           </View>
         </View>
         <View style={styles.buttonWrapper}>
-          <View style={styles.buttonContainer}>
+          <View style={[styles.buttonContainer, {height: 50}]}>
             <Button
+              isLoading={isLoading}
               backgroundColor="#fff"
               textColor="#390280"
               text="Finish"
-              onPress={() => navigation.navigate('setupComplete')}
+              onPress={handleOnFinish}
             />
           </View>
         </View>
@@ -210,4 +305,36 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BVNRegistration;
+const mapStateToProps = (appState: any) => {
+  const {
+    authReducer: {
+      fullname,
+      email,
+      phoneNumber,
+      password,
+      companyName,
+      cacRegistrationNumber,
+      companyEmail,
+      companyContact,
+      companyAddress,
+      interestedInHardware,
+      state,
+    },
+  } = appState;
+  console.log(appState.authReducer);
+  return {
+    fullname,
+    email,
+    phoneNumber,
+    password,
+    companyName,
+    cacRegistrationNumber,
+    companyEmail,
+    companyContact,
+    companyAddress,
+    interestedInHardware,
+    state,
+  };
+};
+
+export default connect(mapStateToProps, actions)(BVNRegistration);

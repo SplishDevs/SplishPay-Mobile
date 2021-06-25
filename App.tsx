@@ -1,12 +1,12 @@
 import 'react-native-gesture-handler';
 
 import React, {useEffect, useRef} from 'react';
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import {BackHandler, StyleSheet, useColorScheme, View} from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './src/screen/onboarding';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/screen/HomeScreen';
@@ -35,12 +35,19 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
 import reducers from './src/reducers';
+import TransactionSearchScreen from './src/screen/transaction/SearchScreen';
+import Items from './src/screen/items';
+import AddItem from './src/screen/items/AddItem';
+import AuthState from './src/AuthState';
+import ItemPage from './src/screen/items/ItemPage';
+import ProductDetailPage from './src/screen/items/ProductDetailPage';
+import PurchasePage from './src/screen/items/PurchasePage';
 
 const Stack = createStackNavigator();
 
 const TabNavigator = createBottomTabNavigator();
 
-const store = createStore(reducers, applyMiddleware(thunk));
+export const store = createStore(reducers, applyMiddleware(thunk));
 
 const HomeStack = function () {
   return (
@@ -54,7 +61,56 @@ const HomeStack = function () {
   );
 };
 
-const AppHome = function () {
+const ItemScreen = function () {
+  return (
+    <Stack.Navigator initialRouteName="item">
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="item"
+        component={Items}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="item-list"
+        component={ItemPage}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="addItem"
+        component={AddItem}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="productDetail"
+        component={ProductDetailPage}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="purchasePage"
+        component={PurchasePage}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const AppHome = function (props: any) {
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+  useEffect(() => {
+    props.navigation.addListener('beforeRemove', (e: any) => {
+      e.preventDefault();
+    });
+  });
   return (
     <TabNavigator.Navigator initialRouteName="home3">
       <TabNavigator.Screen
@@ -95,8 +151,8 @@ const AppHome = function () {
             <Ionicons name="list-outline" color={color} size={size} />
           ),
         }}
-        name="home4"
-        component={HomeScreen}
+        name="items"
+        component={ItemScreen}
       />
       <TabNavigator.Screen
         options={{
@@ -133,7 +189,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="onBoarding">
+        <Stack.Navigator initialRouteName="home">
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="home"
+            component={AuthState}
+          />
           <Stack.Screen
             options={{headerShown: false}}
             name="onBoarding"
@@ -198,6 +259,11 @@ const App = () => {
             options={{headerShown: false}}
             name="notification"
             component={Notification}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="transactionSearchScreen"
+            component={TransactionSearchScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
