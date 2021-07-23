@@ -81,6 +81,16 @@ class Helper {
       }
     });
   }
+  removeItem(key: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await AsyncStorage.removeItem(key);
+        resolve(null);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
   uriToBlob(uri: string): Promise<Blob> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -107,7 +117,7 @@ class Helper {
   }
   strongPasswordCheck(password: string) {
     const regex = new RegExp(
-      '?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,}',
+      '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})',
     );
     return regex.test(password);
   }

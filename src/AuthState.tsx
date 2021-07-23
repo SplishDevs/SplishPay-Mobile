@@ -6,18 +6,29 @@ interface IProps {
   navigation: any;
 }
 
-const AuthState: React.FC<IProps> = props => {
+const AuthState: React.FC<IProps> = ({navigation}) => {
   const getAuthState = async () => {
-    const token = await helpers.getItem('xxx-token');
+    try {
+      // await helpers.removeItem('xxx-token');
 
-    if (token) {
-      return props.navigation.navigate('appHome');
+      console.log('herre');
+      const token = await helpers.getItem('xxx-token');
+      console.log('1');
+      if (token) {
+        console.log('2');
+        return navigation.navigate('appHome');
+      }
+      console.log('3');
+      return navigation.navigate('onBoarding');
+    } catch (error) {
+      console.log(error);
+      return;
     }
-    return props.navigation.navigate('onBoarding');
   };
   useEffect(() => {
+    // console.log('call here in');
     getAuthState();
-  }, []);
+  }, [navigation]);
   return <View></View>;
 };
 

@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import TitleText from '../../components/TitleText';
 import Button from '../../components/Button';
@@ -51,16 +52,16 @@ const BVNRegistration: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleOnFinish = async () => {
     try {
-      setIsLoading(true);
-      if (!isNaN(Number(nin))) {
+      if (isNaN(Number(nin))) {
         return helpers.dispayMessage({
-          message: 'Validation failed',
+          message: 'NIN Validation failed',
           description:
             'Invalid NIN, alphanumberic characters not allowed. Only Numbers are allowed',
           icon: 'info',
           type: 'info',
         });
       }
+      setIsLoading(true);
       const response: any = await http_service.registerAccount({
         fullname,
         email,
@@ -88,6 +89,7 @@ const BVNRegistration: React.FC<Props> = ({
   };
   const handleSkipPress = async () => {
     try {
+      setIsLoading(true);
       const response: any = await http_service.registerAccount({
         fullname,
         email,
@@ -101,7 +103,7 @@ const BVNRegistration: React.FC<Props> = ({
         interestedInHardware,
         state,
       });
-      setIsLoading(true);
+
       await helpers.setItem('xxx-token', response.token);
       await helpers.setItem('xxx-user', JSON.stringify(response.user));
       setIsLoading(false);
@@ -112,12 +114,12 @@ const BVNRegistration: React.FC<Props> = ({
     }
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#390280'}}>
       <StatusBar
         backgroundColor="#390280"
         barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
       />
-      <View style={styles.container}>
+      <ScrollView style={[styles.container, {flex: 1}]}>
         <View style={styles.titleWrapper}>
           <TitleText text="Business Details" color="#fff" />
           <TouchableOpacity onPress={handleSkipPress}>
@@ -212,7 +214,8 @@ const BVNRegistration: React.FC<Props> = ({
             </Text>
           </View>
         </View>
-        <View style={styles.buttonWrapper}>
+
+        {/* <View style={styles.buttonWrapper}>
           <View style={[styles.buttonContainer, {height: 50}]}>
             <Button
               isLoading={isLoading}
@@ -222,7 +225,23 @@ const BVNRegistration: React.FC<Props> = ({
               onPress={handleOnFinish}
             />
           </View>
-        </View>
+        </View> */}
+      </ScrollView>
+      <View
+        style={{
+          marginTop: 20,
+          height: 50,
+          marginBottom: 20,
+          paddingHorizontal: 16,
+        }}>
+        <Button
+          isLoading={isLoading}
+          spinnerColor="#390280"
+          backgroundColor="#fff"
+          textColor="#390280"
+          text="Finish"
+          onPress={handleOnFinish}
+        />
       </View>
     </SafeAreaView>
   );
@@ -292,7 +311,6 @@ const styles = StyleSheet.create({
     fontFamily: 'SFUIText-Heavy',
   },
   container: {
-    backgroundColor: '#390280',
     flex: 1,
     paddingHorizontal: 16,
   },

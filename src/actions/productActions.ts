@@ -1,4 +1,5 @@
 import helpers from '../helpers';
+import http_service from '../http_service';
 import {ActionType} from './type';
 
 export const setProducts = (products: any) => {
@@ -7,6 +8,21 @@ export const setProducts = (products: any) => {
 
 export const setService = (services: any) => {
   return {type: ActionType.GET_SERVICES, payload: services};
+};
+
+export const getCustomers = () => {
+  return async (dispatch: any) => {
+    try {
+      dispatch({type: ActionType.START_LOADING, payload: null});
+      const data: any = await http_service.getCustomers();
+      console.log('data: ', data);
+      dispatch({type: ActionType.STOP_LOADING, payload: null});
+      return dispatch({type: ActionType.GET_CUSTOMERS, payload: data.cusomers});
+    } catch (error) {
+      dispatch({type: ActionType.STOP_LOADING, payload: null});
+      helpers.catchHttpError(error);
+    }
+  };
 };
 
 export const addToCart = (item: any) => {

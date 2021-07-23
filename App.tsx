@@ -42,6 +42,10 @@ import AuthState from './src/AuthState';
 import ItemPage from './src/screen/items/ItemPage';
 import ProductDetailPage from './src/screen/items/ProductDetailPage';
 import PurchasePage from './src/screen/items/PurchasePage';
+import Profile from './src/screen/profile';
+import Customer from './src/screen/profile/Customers';
+import Security from './src/screen/profile/Security';
+import {withNavigation} from '@react-navigation/compat';
 
 const Stack = createStackNavigator();
 
@@ -93,6 +97,33 @@ const ItemScreen = function () {
   );
 };
 
+const ProfileScreen = function () {
+  return (
+    <Stack.Navigator initialRouteName="profile">
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="profile"
+        component={Profile}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="customer"
+        component={Customer}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="security"
+        component={Security}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="login"
+        component={Login}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const AppHome = function (props: any) {
   useFocusEffect(
     React.useCallback(() => {
@@ -120,7 +151,7 @@ const AppHome = function (props: any) {
             <Ionicons name="wallet-outline" color={color} size={size} />
           ),
         }}
-        name="home"
+        name="wallet"
         component={WalletScreen}
       />
       <TabNavigator.Screen
@@ -162,11 +193,13 @@ const AppHome = function (props: any) {
           ),
         }}
         name="home5"
-        component={HomeScreen}
+        component={Profile}
       />
     </TabNavigator.Navigator>
   );
 };
+
+// const HomeApp = withNavigation(AppHome);
 
 const ChargeScreen = function () {
   return (
@@ -190,6 +223,11 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="home">
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="appHome"
+            component={withNavigation(AppHome)}
+          />
           <Stack.Screen
             options={{headerShown: false}}
             name="home"
@@ -235,11 +273,7 @@ const App = () => {
             name="setupComplete"
             component={SetupComplete}
           />
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="appHome"
-            component={AppHome}
-          />
+
           <Stack.Screen
             options={{headerShown: false}}
             name="chargeScreen"
@@ -264,6 +298,17 @@ const App = () => {
             options={{headerShown: false}}
             name="transactionSearchScreen"
             component={TransactionSearchScreen}
+          />
+
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="customer"
+            component={Customer}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="security"
+            component={Security}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {LegacyRef, Ref, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   TextInput,
   TextStyle,
   ViewStyle,
+  KeyboardType,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../util/Colors';
@@ -13,7 +14,7 @@ import {Colors} from '../util/Colors';
 interface Props {
   onChange?: (text: string) => void;
   iconName?: string;
-  keyboardType?: any;
+  keyboardType?: KeyboardType;
   obscureText?: boolean;
   placeholder?: string;
   labelName?: string;
@@ -25,6 +26,7 @@ interface Props {
   autoFocus?: boolean;
   value?: string;
   containerStyle?: ViewStyle;
+  inputRef?: LegacyRef<TextInput>;
 }
 
 const TextField: React.FC<Props> = ({
@@ -76,6 +78,7 @@ const TextField: React.FC<Props> = ({
               keyboardType={props.keyboardType ? props.keyboardType : 'default'}
               secureTextEntry={props.obscureText}
               value={props?.value}
+              ref={props.inputRef}
               style={
                 props.color
                   ? {color: props.color, width: '100%', ...props.inputStyle}

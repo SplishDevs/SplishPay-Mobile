@@ -8,6 +8,92 @@ import axios from 'axios';
 import helpers from '../helpers';
 
 class HttpService {
+  logRequest(payload: {text: string}) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.post(
+          '/api/v1/user/send-request',
+          payload,
+          {
+            headers: {
+              Authorization: token,
+            },
+          },
+        );
+        resolve(response.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  cereatePIN(payload: {pin: string}) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.post('/api/v1/user/set-pin', payload, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        resolve(response.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  updatePIN(payload: {oldPin: string; newPin: string}) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.patch('/api/v1/user/update-pin', payload, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        resolve(response.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  createCustomer(payload: {email: string; name: string; phoneNumber: string}) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.post(
+          '/api/v1/customer/create-customer',
+          payload,
+          {
+            headers: {
+              Authorization: token,
+            },
+          },
+        );
+        resolve(response.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  getCustomers() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.get(
+          '/api/v1/customer/get-user-customers',
+          {
+            headers: {
+              Authorization: token,
+            },
+          },
+        );
+        resolve(response.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
   registerAccount(payload: any) {
     return new Promise(async (resolve, reject) => {
       try {

@@ -16,6 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../util/Colors';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
+import helpers from '../../helpers';
 
 interface Props {
   navigation: any;
@@ -24,6 +25,23 @@ interface Props {
 }
 
 const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
+  const getAuthState = async () => {
+    try {
+      // await helpers.removeItem('xxx-token');
+
+      console.log('herre');
+      const token = await helpers.getItem('xxx-token');
+      console.log('record 1');
+      if (!token) {
+        console.log('record 2');
+        return navigation.navigate('onBoarding');
+      }
+      console.log('record 3');
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
   const [amount, setAmount] = useState<string[]>([]);
   const handleDelete = () => {
     setAmount(amount => {
@@ -40,6 +58,16 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
     }
   };
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', (e: any) => {
+      // Prevent default action
+      // e.preventDefault();
+      getAuthState();
+      console.log('called here');
+    });
+    return unsubscribe;
+  }, [navigation]);
+  useEffect(() => {
+    console.log('calledagain');
     getCartItems();
   }, [cart.length]);
   const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(cart.length);
@@ -184,10 +212,17 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.keyPadStyle}
+                style={[styles.keyPadStyle]}
                 onPress={handleDelete}>
                 <View>
-                  <Text style={styles.keyPadText}> {'<'} </Text>
+                  <Text
+                    style={[
+                      styles.keyPadText,
+                      {color: Colors.RED, fontWeight: 'bold'},
+                    ]}>
+                    {' '}
+                    {'<'}{' '}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>

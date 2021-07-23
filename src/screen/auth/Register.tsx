@@ -51,15 +51,14 @@ const Register: React.FC<Props> = ({
         type: 'danger',
       });
     }
-    if (!helpers.strongPasswordCheck(password)) {
-      return helpers.dispayMessage({
-        message: 'Password Strength Validation Failed',
-        icon: 'danger',
-        type: 'danger',
-        description: `Password must have atleast one lowercase, atleast one uppercase,
-        atleast one special character, must be atleast 8 characters`,
-      });
-    }
+    // if (!helpers.strongPasswordCheck(password)) {
+    //   return helpers.dispayMessage({
+    //     message: 'Password Strength Validation Failed',
+    //     icon: 'danger',
+    //     type: 'danger',
+    //     description: `Password must have atleast one lowercase, atleast one uppercase,atleast one special character and must be atleast 8 characters`,
+    //   });
+    // }
     registerProfileLoadedPageOne({fullname, email, phoneNumber, password});
     navigation.navigate('businessDetailRegister');
   };

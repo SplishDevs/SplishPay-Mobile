@@ -48,6 +48,14 @@ const BusinessDetailsRegister: React.FC<Props> = ({
         type: 'info',
       });
     }
+    if (!helpers.validateEmail(companyEmail)) {
+      return helpers.dispayMessage({
+        message: 'Email Validation failed',
+        description: 'Email Address format is invalid',
+        icon: 'info',
+        type: 'info',
+      });
+    }
     registerProfileLoadedPageTwo({
       companyName,
       cacRegistrationNumber,

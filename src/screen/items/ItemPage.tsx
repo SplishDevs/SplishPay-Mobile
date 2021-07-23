@@ -45,7 +45,7 @@ const ItemPage: React.FC<IProps> = ({
       <View style={{flex: 1}}>
         <TitleBar navigation={navigation} />
         <Tabs
-          style={{backgroundColor: Colors.BLACK, elevation: 0}}
+          style={{backgroundColor: Colors.WHITE, elevation: 0, flex: 1}}
           tabBarBackgroundColor={Colors.BLACK}
           //   tabBarBackgroundColor={Colors.GRAY_1}
           tabBarUnderlineStyle={{
@@ -221,9 +221,10 @@ const Service: React.FC<IServiceProps> = ({
 
 interface IPropsTitle {
   navigation: any;
+  title?: string;
 }
 
-const TitleBar: React.FC<IPropsTitle> = ({navigation}) => {
+export const TitleBar: React.FC<IPropsTitle> = ({navigation, title}) => {
   return (
     <View style={{paddingHorizontal: 16, paddingVertical: 8}}>
       <View
@@ -240,7 +241,7 @@ const TitleBar: React.FC<IPropsTitle> = ({navigation}) => {
               fontWeight: '500',
               textAlign: 'center',
             }}
-            text="Items"
+            text={title ? title : 'Items'}
           />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('addItem')}>
@@ -275,6 +276,35 @@ const TitleBar: React.FC<IPropsTitle> = ({navigation}) => {
     </View>
   );
 };
+
+// export const HeaderTitle: React.FC<IPropsTitle> = ({navigation, title}) => {
+//   return (
+//     <View style={{paddingHorizontal: 16, paddingVertical: 8}}>
+//       <View
+//         style={{
+//           flexDirection: 'row',
+//           width: '100%',
+//           marginBottom: 10,
+//         }}>
+//         <View style={{flex: 1}}>
+//           <TitleText
+//             styles={{
+//               fontSize: 24,
+//               color: '#0F0F0F',
+//               fontWeight: '500',
+//               textAlign: 'center',
+//             }}
+//             text={title ? title : 'Items'}
+//           />
+//         </View>
+//         <TouchableOpacity onPress={on}>
+//           <Ionicons name="add-outline" color={Colors.BLACK} size={32} />
+//         </TouchableOpacity>
+//       </View>
+
+//     </View>
+//   );
+// };
 
 const styles = StyleSheet.create({
   description: {

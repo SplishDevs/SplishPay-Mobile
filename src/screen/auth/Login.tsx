@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Platform,
@@ -7,12 +7,15 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
+  ScrollView,
+  BackHandler,
 } from 'react-native';
 import TextField from '../../components/TextField';
 import TitleText from '../../components/TitleText';
 import Button from '../../components/Button';
 import helpers from '../../helpers';
 import http_service from '../../http_service';
+// import {useNavigation} from '@react-navigation/core';
 
 const backgroundImage = require('../../../assets/images/bg2.jpg');
 const splishPay = require('../../../assets/images/splishpay.png');
@@ -39,6 +42,17 @@ const Login: React.FC<Props> = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  // const navigation = useNavigation();
+  useEffect(() => {
+    // BackHandler.addEventListener('hardwareBackPress', () => {
+    //   console.log('callhed here ');
+    //   return true;
+    // });
+    // navigation.addListener('beforeRemove', e => {
+    //   e.preventDefault();
+    //   console.log(e);
+    // });
+  }, [navigation]);
   const handleLoginPress = async () => {
     try {
       if (email.trim() === '' || password.trim() === '') {
@@ -73,8 +87,14 @@ const Login: React.FC<Props> = ({navigation}) => {
         <View style={{marginHorizontal: 24, marginTop: 20}}>
           <TitleText text="Log In" />
         </View>
-        <View style={{flex: 3, marginHorizontal: 24, marginTop: 20}}>
-          <View>
+        <View
+          style={{
+            flex: 3,
+            marginHorizontal: 24,
+            marginTop: 20,
+            marginBottom: 20,
+          }}>
+          <ScrollView style={{flex: 1}}>
             <TextField
               color="#808080"
               iconName="mail-outline"
@@ -90,16 +110,16 @@ const Login: React.FC<Props> = ({navigation}) => {
               onChange={text => setPassword(text)}
               value={password}
             />
-          </View>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <View style={[styles.buttonContainer, {height: 50}]}>
-            <Button
-              isLoading={isLoading}
-              text="Log In"
-              onPress={handleLoginPress}
-            />
-          </View>
+            <View style={{marginTop: 40}}>
+              <View style={[styles.buttonContainer, {height: 50}]}>
+                <Button
+                  isLoading={isLoading}
+                  text="Log In"
+                  onPress={handleLoginPress}
+                />
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
@@ -120,8 +140,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 40,
-    width: '90%',
-    maxWidth: 300,
+    width: '100%',
   },
   buttonWrapper: {
     position: 'absolute',

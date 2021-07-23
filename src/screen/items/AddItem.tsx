@@ -45,8 +45,13 @@ const AddItem: React.FC<IProps> = ({navigation, setService, setProducts}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.WHITE}}>
       <StatusBar backgroundColor={Colors.WHITE} barStyle={'dark-content'} />
       <KeyboardAvoidingView
-        style={{flex: 1, paddingHorizontal: 16, paddingVertical: 16}}
-        behavior="padding">
+        style={{
+          flex: 1,
+          paddingHorizontal: 16,
+          paddingTop: 16,
+          paddingBottom: 20,
+        }}
+        behavior="height">
         <View
           // contentContainerStyle={{flexGrow: 1}}
           style={{
@@ -312,6 +317,7 @@ const ItemTab: React.FC<IItemProps> = ({setProducts}) => {
   };
   const handleAddItem = async () => {
     try {
+      console.log('called here o');
       if (!image) {
         return helpers.dispayMessage({
           message: 'Validation failed',
@@ -342,8 +348,7 @@ const ItemTab: React.FC<IItemProps> = ({setProducts}) => {
         ) {
           return helpers.dispayMessage({
             message: 'Validation failed',
-            description:
-              'Service Name, Price, Time Duration and Category color is required',
+            description: 'Product Name, Price and Category color is required',
             icon: 'info',
             type: 'info',
           });

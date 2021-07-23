@@ -7,4 +7,5 @@ export enum ActionType {
   GET_PRODUCTS,
   LOAD_CART,
   GET_SERVICES,
+  GET_CUSTOMERS,
 }

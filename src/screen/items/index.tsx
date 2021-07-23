@@ -24,9 +24,15 @@ interface IProps {
   navigation: any;
   products: any;
   setProducts: Function;
+  services: any;
 }
 
-const Items: React.FC<IProps> = ({navigation, products, setProducts}) => {
+const Items: React.FC<IProps> = ({
+  navigation,
+  products,
+  setProducts,
+  services,
+}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.WHITE}}>
       <StatusBar backgroundColor={Colors.WHITE} barStyle={'dark-content'} />
@@ -35,6 +41,7 @@ const Items: React.FC<IProps> = ({navigation, products, setProducts}) => {
         style={{paddingHorizontal: 16, paddingVertical: 16}}>
         <NoItems
           products={products}
+          services={services}
           setProducts={setProducts}
           onCreateItem={() => navigation.navigate('addItem')}
           onNavigateToItemPage={() => navigation.navigate('item-list')}
@@ -49,6 +56,7 @@ interface INoItemProps {
   products: any;
   onNavigateToItemPage?: () => void;
   setProducts: Function;
+  services: any;
 }
 
 const NoItems: React.FC<INoItemProps> = ({
@@ -56,6 +64,7 @@ const NoItems: React.FC<INoItemProps> = ({
   products,
   onNavigateToItemPage,
   setProducts,
+  services,
 }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [disAbled, setDisabled] = useState(true);
@@ -64,6 +73,9 @@ const NoItems: React.FC<INoItemProps> = ({
       setIsLoading(true);
       console.log('called');
       const products: any = await http_service.getUserProduct();
+      // await helpers.removeItem('xxx-token');
+      // await helpers.removeItem('xxx-user');
+
       console.log('o =.>', products);
       setIsLoading(false);
       if (products.length > 0) {
@@ -73,20 +85,24 @@ const NoItems: React.FC<INoItemProps> = ({
 
       setDisabled(false);
     } catch (error) {
+      helpers.catchHttpError(error);
       setIsLoading(false);
     }
   };
   useEffect(() => {
     try {
+      console.log('call in effect', products.length);
       if (products.length === 0) {
         getProducts();
+      } else {
+        onNavigateToItemPage ? onNavigateToItemPage() : null;
       }
 
-      // onNavigateToItemPage ? onNavigateToItemPage() : null;
+      //
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [products.length, services.length]);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Image
@@ -128,10 +144,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    product: {products},
+    product: {products, services},
   } = state;
 
-  return {products};
+  return {products, services};
 };
 
 export default connect(mapStateToProps, actions)(Items);
