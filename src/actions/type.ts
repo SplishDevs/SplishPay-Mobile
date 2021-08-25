@@ -8,4 +8,5 @@ export enum ActionType {
   LOAD_CART,
   GET_SERVICES,
   GET_CUSTOMERS,
+  GET_TRANSACTIONS,
 }

@@ -12,13 +12,16 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import helpers from '../../helpers';
 
 const cashIcon = require('../../../assets/images/cash.png');
 
 interface Props {
   navigation: any;
+  route: any;
 }
-const CashSuccess: React.FC<Props> = ({navigation}) => {
+const CashSuccess: React.FC<Props> = ({navigation, route}) => {
+  const {totalAmount} = route.params;
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -59,7 +62,7 @@ const CashSuccess: React.FC<Props> = ({navigation}) => {
             <Text style={[styles.mr10, styles.SFUITextRegular]}>Payment</Text>
             <Text
               style={[styles.mr10, styles.SFUITextRegular, styles.colorBlue]}>
-              2,500
+              {helpers.formatAsMoney(`${totalAmount}`)}
             </Text>
             <Text style={[styles.SFUITextRegular]}>received and recorded</Text>
           </View>

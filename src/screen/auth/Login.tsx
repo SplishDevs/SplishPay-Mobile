@@ -15,6 +15,7 @@ import TitleText from '../../components/TitleText';
 import Button from '../../components/Button';
 import helpers from '../../helpers';
 import http_service from '../../http_service';
+import PasswordField from '../../components/PasswordField';
 // import {useNavigation} from '@react-navigation/core';
 
 const backgroundImage = require('../../../assets/images/bg2.jpg');
@@ -96,14 +97,14 @@ const Login: React.FC<Props> = ({navigation}) => {
           }}>
           <ScrollView style={{flex: 1}}>
             <TextField
-              color="#808080"
+              color="#000"
               iconName="mail-outline"
               labelName="Email"
               onChange={text => setEmail(text)}
               value={email}
             />
-            <TextField
-              color="#808080"
+            <PasswordField
+              color="#000"
               iconName="lock-closed-outline"
               labelName="Password"
               obscureText

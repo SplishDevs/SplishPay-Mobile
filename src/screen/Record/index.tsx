@@ -240,9 +240,7 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('items', {
-              screen: 'purchasePage',
-            });
+            navigation.navigate('cart');
           }}
           style={{
             flexDirection: 'row',

@@ -401,15 +401,20 @@ export const StatusIOSBar: React.FC<ISatusBar> = ({
   return Platform.OS === 'ios' ? (
     <View
       style={{
-        backgroundColor: backgroundColor ? backgroundColor : Colors.BLACK,
+        backgroundColor: backgroundColor ? backgroundColor : Colors.WHITE,
         height: getStatusBarHeight(),
       }}>
       <StatusBar
-        barStyle={barStyle ? barStyle : 'light-content'}
-        backgroundColor={Colors.BLACK}
+        barStyle={barStyle ? barStyle : 'dark-content'}
+        backgroundColor={backgroundColor ? backgroundColor : Colors.WHITE}
       />
     </View>
-  ) : null;
+  ) : (
+    <StatusBar
+      barStyle={barStyle ? barStyle : 'dark-content'}
+      backgroundColor={backgroundColor ? backgroundColor : Colors.WHITE}
+    />
+  );
 };
 
 const StatsView = () => {

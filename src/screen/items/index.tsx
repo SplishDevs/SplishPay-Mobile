@@ -25,6 +25,8 @@ interface IProps {
   products: any;
   setProducts: Function;
   services: any;
+  startLoading: Function;
+  stopLoading: Function;
 }
 
 const Items: React.FC<IProps> = ({
@@ -32,6 +34,8 @@ const Items: React.FC<IProps> = ({
   products,
   setProducts,
   services,
+  startLoading,
+  stopLoading,
 }) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.WHITE}}>
@@ -45,6 +49,8 @@ const Items: React.FC<IProps> = ({
           setProducts={setProducts}
           onCreateItem={() => navigation.navigate('addItem')}
           onNavigateToItemPage={() => navigation.navigate('item-list')}
+          startLoading={startLoading}
+          stopLoading={stopLoading}
         />
       </ScrollView>
     </SafeAreaView>
@@ -57,6 +63,8 @@ interface INoItemProps {
   onNavigateToItemPage?: () => void;
   setProducts: Function;
   services: any;
+  startLoading: Function;
+  stopLoading: Function;
 }
 
 const NoItems: React.FC<INoItemProps> = ({
@@ -65,18 +73,22 @@ const NoItems: React.FC<INoItemProps> = ({
   onNavigateToItemPage,
   setProducts,
   services,
+  startLoading,
+  stopLoading,
 }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [disAbled, setDisabled] = useState(true);
   const getProducts = async () => {
     try {
-      setIsLoading(true);
+      startLoading();
+      // setIsLoading(true);
       console.log('called');
       const products: any = await http_service.getUserProduct();
       // await helpers.removeItem('xxx-token');
       // await helpers.removeItem('xxx-user');
 
       console.log('o =.>', products);
+      // stopLoading();
       setIsLoading(false);
       if (products.length > 0) {
         setProducts(products);

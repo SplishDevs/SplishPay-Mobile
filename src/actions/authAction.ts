@@ -1,4 +1,6 @@
 import {Action} from '.';
+import helpers from '../helpers';
+import http_service from '../http_service';
 import {ActionType} from './type';
 
 export const registerProfileLoadedPageOne = ({
@@ -52,4 +54,12 @@ export const registerProfileLoadedPageTwo = ({
       state,
     },
   };
+};
+
+export const startLoading = () => {
+  return {type: ActionType.START_LOADING, payload: null};
+};
+
+export const stopLoading = () => {
+  return {type: ActionType.STOP_LOADING, payload: null};
 };

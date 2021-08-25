@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   cart: [],
   services: [],
   customers: [],
+  transactions: [],
 };
 
 export default (state = INITIAL_STATE, action: Action) => {
@@ -16,6 +17,8 @@ export default (state = INITIAL_STATE, action: Action) => {
       return {...state, services: action.payload};
     case ActionType.LOAD_CART:
       return {...state, cart: action.payload};
+    case ActionType.GET_TRANSACTIONS:
+      return {...state, transactions: action.payload};
     case ActionType.GET_CUSTOMERS:
       return {...state, customers: action.payload};
     default:

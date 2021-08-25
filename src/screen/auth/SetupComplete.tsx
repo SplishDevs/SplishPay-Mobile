@@ -39,7 +39,7 @@ const SetupComplete: React.FC<Props> = ({navigation}) => {
           <Text style={styles.infoStyle}>accepting payments</Text>
         </View>
         <View style={styles.buttonWrapper}>
-          <View style={styles.buttonContainer}>
+          <View style={[styles.buttonContainer, {height: 50}]}>
             <Button
               text="Sign In"
               onPress={() => navigation.navigate('login')}

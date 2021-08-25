@@ -1,4 +1,4 @@
-import React, {LegacyRef, Ref, useRef} from 'react';
+import React, {LegacyRef, Ref, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,6 +7,8 @@ import {
   TextStyle,
   ViewStyle,
   KeyboardType,
+  TouchableOpacityBase,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../util/Colors';
@@ -24,17 +26,17 @@ interface Props {
   inputStyle?: TextStyle;
   editable?: boolean;
   autoFocus?: boolean;
-
   value?: string;
   containerStyle?: ViewStyle;
   inputRef?: LegacyRef<TextInput>;
 }
 
-const TextField: React.FC<Props> = ({
+const PasswordField: React.FC<Props> = ({
   editable = true,
   autoFocus = false,
   ...props
 }) => {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <View style={[styles.container]}>
       {props.labelName && (
@@ -75,10 +77,9 @@ const TextField: React.FC<Props> = ({
               editable={editable}
               onChangeText={props.onChange}
               autoCapitalize="none"
-              placeholderTextColor={Colors.GRAY_2}
               placeholder={props.placeholder ? props.placeholder : ''}
               keyboardType={props.keyboardType ? props.keyboardType : 'default'}
-              secureTextEntry={props.obscureText}
+              secureTextEntry={isOpen}
               value={props?.value}
               ref={props.inputRef}
               style={
@@ -88,6 +89,13 @@ const TextField: React.FC<Props> = ({
               }
             />
           </View>
+          <TouchableOpacity onPress={() => setIsOpen(state => !state)}>
+            <Icon
+              name={isOpen ? 'eye-off-outline' : 'eye-outline'}
+              size={20}
+              color={props.color ? props.color : '#000'}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -128,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextField;
+export default PasswordField;

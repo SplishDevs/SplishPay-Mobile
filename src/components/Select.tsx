@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import {View, StyleSheet, Text, TextInput, TextStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Picker, Label} from 'native-base';
 
@@ -13,6 +13,7 @@ interface Props {
   selectedValue?: string;
   data: PickerProps[];
   iosHeader?: string;
+  labelStyle?: TextStyle;
 }
 
 interface PickerProps {
@@ -25,7 +26,9 @@ const Select: React.FC<Props> = props => {
     <View style={styles.container}>
       {props.labelName && (
         <View>
-          <Text style={styles.labelStyle}>{props.labelName}</Text>
+          <Text style={[styles.labelStyle, props.labelStyle]}>
+            {props.labelName}
+          </Text>
         </View>
       )}
       <View style={styles.inputContainer}>

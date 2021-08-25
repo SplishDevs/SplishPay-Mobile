@@ -33,6 +33,8 @@ interface Props {
   companyAddress: string;
   interestedInHardware: boolean;
   state: string;
+  startLoading?: Function;
+  stopLoading?: Function;
 }
 const BVNRegistration: React.FC<Props> = ({
   navigation,
@@ -47,6 +49,8 @@ const BVNRegistration: React.FC<Props> = ({
   companyAddress,
   interestedInHardware,
   state,
+  startLoading,
+  stopLoading,
 }) => {
   const [nin, setNIN] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +93,12 @@ const BVNRegistration: React.FC<Props> = ({
   };
   const handleSkipPress = async () => {
     try {
-      setIsLoading(true);
+      if (startLoading) {
+        startLoading();
+      } else {
+        setIsLoading(true);
+      }
+
       const response: any = await http_service.registerAccount({
         fullname,
         email,
@@ -106,8 +115,11 @@ const BVNRegistration: React.FC<Props> = ({
 
       await helpers.setItem('xxx-token', response.token);
       await helpers.setItem('xxx-user', JSON.stringify(response.user));
-      setIsLoading(false);
-      setIsLoading(false);
+      if (stopLoading) {
+        stopLoading();
+      } else {
+        setIsLoading(false);
+      }
       navigation.navigate('setupComplete');
     } catch (error) {
       helpers.catchHttpError(error);
@@ -155,7 +167,7 @@ const BVNRegistration: React.FC<Props> = ({
               A verification code will be sent to number associated
             </Text>
             <Text style={[styles.textWhite, styles.smallCaption]}>
-              with this BVN
+              with this NIN
             </Text>
           </View>
         </View>
@@ -166,7 +178,7 @@ const BVNRegistration: React.FC<Props> = ({
             </View>
             <View style={[styles.ml4]}>
               <Text style={[styles.textWhite, {fontSize: 17}]}>
-                Why we need your BVN
+                Why we need your NIN
               </Text>
               <Text style={[styles.textWhite, styles.smallCaption]}>
                 We only need access to your:
@@ -207,7 +219,7 @@ const BVNRegistration: React.FC<Props> = ({
           ]}>
           <View>
             <Text style={[styles.textWhite, {textAlign: 'center'}]}>
-              Your BVN does not give us access to your
+              Your NIN does not give us access to your
             </Text>
             <Text style={[styles.textWhite, {textAlign: 'center'}]}>
               bank account information

@@ -12,13 +12,14 @@ import {
 
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
 import Button from '../../components/Button';
 import Indicator from '../../components/Indicator';
 import FirstScreen from './FirstScreen';
 import SecondScreen from './SecondScreen';
 import ThirdScreen from './ThirdScreen';
+import {Colors} from '../../util/Colors';
 
 export const swipeDirections = {
   SWIPE_UP: 'SWIPE_UP',
@@ -55,7 +56,7 @@ const Onboarding: React.FC<Props> = ({navigation}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? Colors.WHITE : Colors.WHITE,
   };
 
   const handleleftSwipe = () => {
@@ -110,6 +111,7 @@ const Onboarding: React.FC<Props> = ({navigation}) => {
               <View style={styles.buttonContainer}>
                 <Button
                   text="Register"
+                  // onPress={() => navigation.navigate('businessDetailRegister')}
                   onPress={() => navigation.navigate('register')}
                 />
               </View>

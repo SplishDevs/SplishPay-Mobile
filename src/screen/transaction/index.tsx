@@ -1,5 +1,5 @@
 import {Tab, TabHeading, Tabs, Text} from 'native-base';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Platform,
   Pressable,
@@ -16,15 +16,28 @@ import Indicator from '../../components/Indicator';
 import TextField from '../../components/TextField';
 import TitleText from '../../components/TitleText';
 import {Colors} from '../../util/Colors';
+import * as actions from '../../actions';
+import {connect} from 'react-redux';
+import helpers from '../../helpers';
 
 interface IProps {
   navigation: any;
+  transactions: any[];
+  getTransactions: Function;
 }
 
-const Transaction: React.FC<IProps> = ({navigation}) => {
+const Transaction: React.FC<IProps> = ({
+  navigation,
+  transactions,
+  getTransactions,
+}) => {
   const handleInputFieldTap = () => {
     navigation.navigate('transactionSearchScreen');
   };
+  useEffect(() => {
+    console.log('called here ooooo');
+    getTransactions();
+  }, []);
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle={'dark-content'} backgroundColor={Colors.WHITE} />
@@ -45,6 +58,8 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
               editable={false}
               iconName="search-outline"
               placeholder="Search"
+              color={'#000'}
+              labelColor={Colors.BLACK}
               inputStyle={{width: '100%'}}
             />
           </Pressable>
@@ -95,47 +110,18 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
                 backgroundColor: Colors.BACKGROUND_COLOR,
                 paddingTop: 16,
               }}>
-              <TitleText
-                text="Today"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
               <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Yesterday"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Other Days"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
+                {transactions.map(item => (
+                  <OrderTxRow
+                    key={item.id}
+                    data={{
+                      status: 'Completed',
+                      amount: item.amount,
+                      channel: 'Cash',
+                      date: new Date(item.createdAt),
+                    }}
+                  />
+                ))}
               </View>
             </ScrollView>
           </Tab>
@@ -158,21 +144,25 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
                 backgroundColor: Colors.BACKGROUND_COLOR,
                 paddingTop: 16,
               }}>
-              <TitleText
+              {/* <TitleText
                 text="Today"
                 styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
+              /> */}
               <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
+                {transactions.map(item => (
+                  <OrderTxRow
+                    key={item.id}
+                    data={{
+                      status: 'Completed',
+                      amount: item.amount,
+                      channel: 'Cash',
+                      date: new Date(item.createdAt),
+                    }}
+                  />
+                ))}
               </View>
-              <TitleText
+
+              {/* <TitleText
                 text="Yesterday"
                 styles={{color: Colors.GRAY_1, fontSize: 16}}
               />
@@ -185,8 +175,8 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
                     date: new Date(),
                   }}
                 />
-              </View>
-              <TitleText
+              </View> */}
+              {/* <TitleText
                 text="Other Days"
                 styles={{color: Colors.GRAY_1, fontSize: 16}}
               />
@@ -199,7 +189,7 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
                     date: new Date(),
                   }}
                 />
-              </View>
+              </View> */}
             </ScrollView>
           </Tab>
           <Tab
@@ -220,50 +210,7 @@ const Transaction: React.FC<IProps> = ({navigation}) => {
               style={{
                 backgroundColor: Colors.BACKGROUND_COLOR,
                 paddingTop: 16,
-              }}>
-              <TitleText
-                text="Today"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Yesterday"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-              <TitleText
-                text="Other Days"
-                styles={{color: Colors.GRAY_1, fontSize: 16}}
-              />
-              <View style={{marginVertical: 10}}>
-                <TxRow
-                  data={{
-                    status: 'Pending',
-                    amount: '6000',
-                    channel: 'Cash',
-                    date: new Date(),
-                  }}
-                />
-              </View>
-            </ScrollView>
+              }}></ScrollView>
           </Tab>
         </Tabs>
       </ScrollView>
@@ -472,6 +419,134 @@ const TxRow: React.FC<ITransactionProps> = ({data, onItemPress}) => {
   );
 };
 
+const OrderTxRow: React.FC<ITransactionProps> = ({data, onItemPress}) => {
+  return (
+    <TouchableOpacity
+      style={{width: '100%'}}
+      onPress={() => (onItemPress ? onItemPress(data) : null)}>
+      <View style={styles.contaner}>
+        <View
+          style={{flexDirection: 'row', marginBottom: 10, paddingVertical: 8}}>
+          <View
+            style={
+              data.status === 'Completed'
+                ? {
+                    ...styles.bgCredit,
+                    backgroundColor: '#EBF8EA',
+                    width: 40,
+                    height: 40,
+                  }
+                : {
+                    ...styles.bgDebit,
+                    backgroundColor: '#FCF7E6',
+                    width: 40,
+                    height: 40,
+                  }
+            }>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}>
+              <FontAwesome
+                size={24}
+                color={data.status === 'Completed' ? Colors.GREEN : '#ee514b'}
+                name="exchange-alt"
+              />
+            </View>
+          </View>
+          <View style={{flex: 1, marginLeft: 8}}>
+            <View>
+              <Text
+                style={{fontFamily: 'SFUIText-Regular', color: Colors.GRAY_1}}>
+                You {'Sold items worth '}
+                <Text
+                  style={{
+                    fontFamily: 'SFUIText-Regular',
+                    color: Colors.BLACK,
+                    fontSize: 14,
+                  }}>
+                  {helpers.formatAsMoney(data.amount)}
+                </Text>
+              </Text>
+              <View style={{flexDirection: 'row', marginTop: 4}}>
+                <Text
+                  style={{
+                    fontFamily: 'SFUIText-Regular',
+                    color: Colors.GRAY_1,
+                    fontSize: 12,
+                  }}>
+                  {getDateMessage(data.date)}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={
+                      data.channel === 'Bank Transfer'
+                        ? [
+                            styles.dotCredit,
+                            {
+                              backgroundColor: Colors.PURPLE,
+                            },
+                          ]
+                        : data.channel === 'Cash'
+                        ? [
+                            styles.dotCredit,
+                            {
+                              backgroundColor: Colors.GREEN,
+                            },
+                          ]
+                        : data.channel === 'Hardware'
+                        ? [
+                            styles.dotCredit,
+                            {
+                              backgroundColor: Colors.BLUE,
+                            },
+                          ]
+                        : [styles.dotCredit]
+                    }></View>
+                  <Text
+                    style={
+                      data.channel === 'Bank Transfer'
+                        ? [
+                            styles.descCredit,
+                            {
+                              color: Colors.PURPLE,
+                            },
+                          ]
+                        : data.channel === 'Cash'
+                        ? [
+                            styles.descCredit,
+                            {
+                              color: Colors.GREEN,
+                            },
+                          ]
+                        : data.channel === 'Hardware'
+                        ? [
+                            styles.descCredit,
+                            {
+                              color: Colors.BLUE,
+                            },
+                          ]
+                        : [styles.descCredit]
+                    }>
+                    {data.channel}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   contaner: {
     width: '100%',
@@ -520,4 +595,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Transaction;
+const mapStateToProps = (state: any) => {
+  const {
+    product: {transactions},
+  } = state;
+  console.log('transactions length: ', transactions);
+  return {transactions};
+};
+
+export default connect(mapStateToProps, actions)(Transaction);

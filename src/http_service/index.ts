@@ -6,6 +6,7 @@ import {
 } from '../config/constant';
 import axios from 'axios';
 import helpers from '../helpers';
+import {PaymentMethod} from '../screen/cart';
 
 class HttpService {
   logRequest(payload: {text: string}) {
@@ -285,6 +286,56 @@ class HttpService {
         });
 
         return resolve(response.data.services);
+      } catch (error) {
+        // helpers.dispayMessage(error?.response?.data?.message);
+        return reject(error);
+      }
+    });
+  }
+
+  recordTransactionFromCart(
+    cart: any[],
+    paymentMethod: PaymentMethod,
+    totalAmount: string,
+  ) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response = await Axios.post(
+          '/api/v1/user/create-order',
+          {
+            cart,
+            paymentMethod,
+            totalAmount,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          },
+        );
+
+        return resolve(response.data.services);
+      } catch (error) {
+        // helpers.dispayMessage(error?.response?.data?.message);
+        return reject(error);
+      }
+    });
+  }
+
+  getTransactions(): Promise<any[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const token = await helpers.getItem('xxx-token');
+        const response: any = await Axios.get('/api/v1/user/get-transactions', {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        const data: any[] = response.data.data;
+
+        return resolve(data);
       } catch (error) {
         // helpers.dispayMessage(error?.response?.data?.message);
         return reject(error);

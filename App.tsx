@@ -46,6 +46,7 @@ import Profile from './src/screen/profile';
 import Customer from './src/screen/profile/Customers';
 import Security from './src/screen/profile/Security';
 import {withNavigation} from '@react-navigation/compat';
+import Cart from './src/screen/cart';
 
 const Stack = createStackNavigator();
 
@@ -235,6 +236,11 @@ const App = () => {
           />
           <Stack.Screen
             options={{headerShown: false}}
+            name="cart"
+            component={Cart}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
             name="onBoarding"
             component={Onboarding}
           />
@@ -294,6 +300,7 @@ const App = () => {
             name="notification"
             component={Notification}
           />
+
           <Stack.Screen
             options={{headerShown: false}}
             name="transactionSearchScreen"

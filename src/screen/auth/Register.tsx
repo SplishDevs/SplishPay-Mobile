@@ -14,6 +14,7 @@ import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import helpers from '../../helpers';
+import PasswordField from '../../components/PasswordField';
 
 interface Props {
   navigation: any;
@@ -28,6 +29,7 @@ const Register: React.FC<Props> = ({
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConFirmPassword] = useState('');
 
   const handleNextButtonCLick = () => {
     if (
@@ -47,6 +49,14 @@ const Register: React.FC<Props> = ({
       return helpers.dispayMessage({
         message: 'Email Address Validation Failed',
         description: 'Email Provided is not valid',
+        icon: 'danger',
+        type: 'danger',
+      });
+    }
+    if (password !== confirmPassword) {
+      return helpers.dispayMessage({
+        message: 'Passwords Mismatch',
+        description: 'Password and Confirm Password do not match',
         icon: 'danger',
         type: 'danger',
       });
@@ -101,24 +111,31 @@ const Register: React.FC<Props> = ({
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextField
-                obscureText={true}
+              <PasswordField
                 labelName="Password"
                 iconName="lock-closed-outline"
                 value={password}
                 onChange={text => setPassword(text)}
               />
             </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('login');
-              }}>
-              <Text style={styles.loginText}>Log In</Text>
-            </TouchableOpacity>
+            <View style={styles.inputWrapper}>
+              <PasswordField
+                labelName="Confirm Password"
+                iconName="lock-closed-outline"
+                value={confirmPassword}
+                onChange={text => setConFirmPassword(text)}
+              />
+            </View>
           </View>
         </ScrollView>
+        <View style={{marginBottom: 50}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('login');
+            }}>
+            <Text style={styles.loginText}>Log In</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       {/* <View style={{marginTop: 16}}>
         <TouchableOpacity

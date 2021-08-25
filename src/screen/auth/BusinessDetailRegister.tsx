@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -16,6 +16,9 @@ import {CheckBox} from 'native-base';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import helpers from '../../helpers';
+import {locations} from '../../util/location';
+import {Colors} from '../../util/Colors';
+import {Tooltip, Text as MText} from 'react-native-elements';
 
 interface Props {
   navigation: any;
@@ -34,28 +37,15 @@ const BusinessDetailsRegister: React.FC<Props> = ({
   const [interestedInHardware, setInterestedInHardware] = useState(false);
   const [state, setState] = useState('');
   const handleOnNextPress = () => {
-    if (
-      companyName.trim() === '' ||
-      companyEmail.trim() === '' ||
-      companyContact.trim() === '' ||
-      state.trim() === ''
-    ) {
+    if (companyName.trim() === '') {
       return helpers.dispayMessage({
         message: 'Validation failed',
-        description:
-          'Business Name, Business Email, Contact Phone Number, State is required',
+        description: 'Business name is required',
         icon: 'info',
         type: 'info',
       });
     }
-    if (!helpers.validateEmail(companyEmail)) {
-      return helpers.dispayMessage({
-        message: 'Email Validation failed',
-        description: 'Email Address format is invalid',
-        icon: 'info',
-        type: 'info',
-      });
-    }
+
     registerProfileLoadedPageTwo({
       companyName,
       cacRegistrationNumber,
@@ -67,6 +57,22 @@ const BusinessDetailsRegister: React.FC<Props> = ({
     });
     navigation.navigate('BVNRegister');
   };
+  const [locationStates, setLocationStates] = useState<
+    {label: string; value: string}[]
+  >([]);
+
+  const getStates = () => {
+    setLocationStates([
+      ...locations.map(item => ({
+        label: item.state.name,
+        value: item.state.name,
+      })),
+    ]);
+  };
+  useEffect(() => {
+    getStates();
+    // console.log('state: ', locationStates);
+  }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar
@@ -86,8 +92,42 @@ const BusinessDetailsRegister: React.FC<Props> = ({
               />
             </View>
             <View style={styles.inputWrapper}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View>
+                  <Text style={styles.labelStyle}>CAC RC</Text>
+                </View>
+                <Tooltip
+                  overlayColor={'rgba(250, 250, 250, 0.1)'}
+                  width={250}
+                  height={100}
+                  withPointer={true}
+                  withOverlay={false}
+                  containerStyle={{
+                    elevation: 5,
+                    shadowColor: '#000',
+                    shadowOffset: {width: 0, height: 1},
+                    shadowOpacity: 0.8,
+                    shadowRadius: 1,
+                  }}
+                  backgroundColor={Colors.WHITE}
+                  popover={
+                    <MText>
+                      SplishPay can help you register your business without
+                      stress. Get started by sending us an email via{' '}
+                      <MText
+                        style={{
+                          textDecorationLine: 'underline',
+                          color: Colors.BLUE,
+                        }}>
+                        support@splishpay.com
+                      </MText>
+                    </MText>
+                  }>
+                  <MText>Need help Registering?</MText>
+                </Tooltip>
+              </View>
               <TextField
-                labelName="CAC RC"
                 value={cacRegistrationNumber}
                 onChange={text => setCacRegistrationNumber(text)}
               />
@@ -119,13 +159,14 @@ const BusinessDetailsRegister: React.FC<Props> = ({
             <View style={styles.inputWrapper}>
               <Select
                 labelName="State"
+                labelStyle={{color: Colors.GRAY_2, fontWeight: 'bold'}}
                 placeholder="Select State"
-                data={[{label: 'Lagos State', value: 'Lagos State'}]}
+                data={locationStates}
                 selectedValue={state}
                 onChange={text => setState(text)}
               />
             </View>
-            <View style={styles.inputWrapper}>
+            {/* <View style={styles.inputWrapper}> [{label: 'Lagos State', value: 'Lagos State'}]
               <View style={styles.moreInfo}>
                 <Text style={styles.questionText}>
                   Would you like your SplishPay Hardware
@@ -153,6 +194,7 @@ const BusinessDetailsRegister: React.FC<Props> = ({
                 </View>
               </View>
             </View>
+             */}
             <View>
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Text style={styles.loginText}>Back</Text>
@@ -203,6 +245,12 @@ const styles = StyleSheet.create({
     fontFamily: 'SFUIText-Regular',
     color: '#808080',
     textAlign: 'center',
+  },
+  labelStyle: {
+    fontSize: 16,
+    fontFamily: 'SFUIText-Regular',
+    color: Colors.GRAY_2,
+    fontWeight: 'bold',
   },
 });
 
