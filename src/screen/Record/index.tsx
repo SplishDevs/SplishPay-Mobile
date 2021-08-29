@@ -17,6 +17,7 @@ import {Colors} from '../../util/Colors';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import helpers from '../../helpers';
+import {StackActions} from '@react-navigation/routers';
 
 interface Props {
   navigation: any;
@@ -31,10 +32,13 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
 
       console.log('herre');
       const token = await helpers.getItem('xxx-token');
-      console.log('record 1');
+      console.log('record 1: ', token);
       if (!token) {
         console.log('record 2');
-        return navigation.navigate('onBoarding');
+        // navigation.navigate('home');
+        const resetAction = StackActions.push('home');
+        navigation.dispatch(resetAction);
+        return;
       }
       console.log('record 3');
     } catch (error) {
@@ -61,9 +65,11 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
     const unsubscribe = navigation.addListener('focus', (e: any) => {
       // Prevent default action
       // e.preventDefault();
+      console.log('lets get authstate');
       getAuthState();
       console.log('called here');
     });
+    getAuthState();
     return unsubscribe;
   }, [navigation]);
   useEffect(() => {

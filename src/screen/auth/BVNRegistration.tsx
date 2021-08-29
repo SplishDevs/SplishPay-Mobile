@@ -52,15 +52,15 @@ const BVNRegistration: React.FC<Props> = ({
   startLoading,
   stopLoading,
 }) => {
-  const [nin, setNIN] = useState('');
+  const [BVN, setBVN] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const handleOnFinish = async () => {
     try {
-      if (isNaN(Number(nin))) {
+      if (isNaN(Number(BVN))) {
         return helpers.dispayMessage({
-          message: 'NIN Validation failed',
+          message: 'BVN Validation failed',
           description:
-            'Invalid NIN, alphanumberic characters not allowed. Only Numbers are allowed',
+            'Invalid BVN, alphanumberic characters not allowed. Only Numbers are allowed',
           icon: 'info',
           type: 'info',
         });
@@ -78,7 +78,7 @@ const BVNRegistration: React.FC<Props> = ({
         companyAddress,
         interestedInHardware,
         state,
-        nin,
+        BVN,
       });
 
       await helpers.setItem('xxx-token', response.token);
@@ -122,6 +122,10 @@ const BVNRegistration: React.FC<Props> = ({
       }
       navigation.navigate('setupComplete');
     } catch (error) {
+      if (stopLoading) {
+        stopLoading();
+      }
+      setIsLoading(false);
       helpers.catchHttpError(error);
     }
   };
@@ -141,14 +145,14 @@ const BVNRegistration: React.FC<Props> = ({
           </TouchableOpacity>
         </View>
         <View style={[styles.mt10]}>
-          <Text style={[styles.textWhite]}>We use your NIN to ensure your</Text>
+          <Text style={[styles.textWhite]}>We use your BVN to ensure your</Text>
           <Text style={[styles.textWhite, styles.mt4]}>
             account belongs to you
           </Text>
         </View>
         <View style={[styles.mt10]}>
           <Text style={[styles.textWhite, styles.bvnLabelStyle]}>
-            NIN Verification Number [11-digits]
+            BVN Verification Number [11-digits]
           </Text>
           <View style={[styles.mt10]}>
             <TextInput
@@ -159,15 +163,15 @@ const BVNRegistration: React.FC<Props> = ({
                 fontSize: 18,
                 color: '#fff',
               }}
-              value={nin}
-              onChangeText={text => setNIN(text)}
+              value={BVN}
+              onChangeText={text => setBVN(text)}
               selectionColor="#fff"
             />
             <Text style={[styles.mt4, styles.textWhite, styles.smallCaption]}>
               A verification code will be sent to number associated
             </Text>
             <Text style={[styles.textWhite, styles.smallCaption]}>
-              with this NIN
+              with this BVN
             </Text>
           </View>
         </View>
@@ -178,7 +182,7 @@ const BVNRegistration: React.FC<Props> = ({
             </View>
             <View style={[styles.ml4]}>
               <Text style={[styles.textWhite, {fontSize: 17}]}>
-                Why we need your NIN
+                Why we need your BVN
               </Text>
               <Text style={[styles.textWhite, styles.smallCaption]}>
                 We only need access to your:
@@ -219,7 +223,7 @@ const BVNRegistration: React.FC<Props> = ({
           ]}>
           <View>
             <Text style={[styles.textWhite, {textAlign: 'center'}]}>
-              Your NIN does not give us access to your
+              Your BVN does not give us access to your
             </Text>
             <Text style={[styles.textWhite, {textAlign: 'center'}]}>
               bank account information

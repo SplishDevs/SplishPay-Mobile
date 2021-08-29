@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
+  ScrollViewBase,
+  ScrollView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
@@ -19,6 +21,7 @@ import helpers from '../../helpers';
 import * as actions from '../../actions';
 import {Colors} from '../../util/Colors';
 import {Image} from 'react-native-elements';
+import http_service from '../../http_service';
 
 const bankIcon = require('../../../assets/images/bank.png');
 const hardwareIcon = require('../../../assets/images/hardware.png');
@@ -36,6 +39,9 @@ interface Props {
   navigation: any;
   getCart: Function;
   cart: any[];
+  startLoading: Function;
+  stopLoading: Function;
+  clearLocalCart: Function;
 }
 
 interface PaymentRowProps {
@@ -190,20 +196,60 @@ const DropDown: React.FC<DropDownProps> = ({
   );
 };
 
-const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
+const PurchasePage: React.FC<Props> = ({
+  navigation,
+  getCart,
+  cart,
+  startLoading,
+  stopLoading,
+  clearLocalCart,
+}) => {
   const [selectedPaymentMethod, onPaymentChange] = useState<PaymentMethod>(
     PaymentMethod.BANK_TRANSFER,
   );
   const [showMenutItems, onShowMenuItems] = useState(false);
-  const handleChargeOnPress = () => {
-    switch (selectedPaymentMethod) {
-      case PaymentMethod.CASH:
-        navigation.navigate('cashSuccess');
-      case PaymentMethod.BANK_TRANSFER:
-        navigation.navigate('bankSuccess');
-        break;
+  // const handleChargeOnPress = () => {
+  //   switch (selectedPaymentMethod) {
+  //     case PaymentMethod.CASH:
+  //       navigation.navigate('cashSuccess');
+  //     case PaymentMethod.BANK_TRANSFER:
+  //       navigation.navigate('bankSuccess');
+  //       break;
+  //   }
+  // };
+  const handleChargeOnPress = async () => {
+    try {
+      if (cart.length === 0) return;
+      if (selectedPaymentMethod === PaymentMethod.CASH) {
+        // submit online
+        startLoading();
+
+        await http_service.recordTransactionFromCart(
+          cart,
+          selectedPaymentMethod,
+          `${getCartSum()}`,
+        );
+
+        clearLocalCart();
+
+        //stop loading
+        stopLoading();
+
+        navigation.navigate('cashSuccess', {totalAmount: getCartSum()});
+      }
+    } catch (error) {
+      helpers.catchHttpError(error);
     }
   };
+  const getCartSum = () => {
+    const total = cart.reduce(
+      (preValue, item) =>
+        (preValue += parseInt(item.quantity) * parseInt(item.price)),
+      0,
+    );
+    return total;
+  };
+
   const [userName, setUserName] = useState('');
   const [transactionDate, setTransactionDate] = useState('');
   const [cartItems, setCart] = useState<any[]>([]);
@@ -232,7 +278,7 @@ const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
   };
   const renderCartItems = () => {
     return cart.map(item => (
-      <View key={item.id}>
+      <View style={{marginBottom: 10}} key={item.id}>
         <View style={{flexDirection: 'row'}}>
           <Image
             source={{uri: item.mainImageUrl}}
@@ -248,9 +294,11 @@ const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
               text={item.name}
             />
             <TitleText
-              styles={{fontWeight: 'bold', fontSize: 20}}
+              styles={{fontSize: 16}}
               text={`N ${helpers.formatAsMoney(
-                isNaN(item.price) ? '10000' : item.price,
+                isNaN(item.price)
+                  ? `${10000 * item.quantity}`
+                  : `${parseInt(item.price) * item.quantity}`,
               )}`}
             />
           </View>
@@ -312,15 +360,17 @@ const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
               {transactionDate}
             </Text>
           </View>
-          <View
-            style={{
-              marginBottom: 10,
-              borderBottomWidth: 1,
-              borderColor: Colors.GRAY_1,
-              paddingBottom: 20,
-            }}>
-            {renderCartItems()}
-          </View>
+          <ScrollView style={{flex: 1}}>
+            <View
+              style={{
+                marginBottom: 10,
+                borderBottomWidth: 1,
+                borderColor: Colors.GRAY_1,
+                paddingBottom: 20,
+              }}>
+              {renderCartItems()}
+            </View>
+          </ScrollView>
           <View
             style={{
               marginVertical: 10,
@@ -350,7 +400,10 @@ const PurchasePage: React.FC<Props> = ({navigation, getCart, cart}) => {
               {renderTotal()}
             </View>
           </View>
-          {getConnectStatus(selectedPaymentMethod)}
+
+          <View style={{marginBottom: 16}}>
+            {getConnectStatus(selectedPaymentMethod)}
+          </View>
         </View>
       </View>
       <View style={styles.lowerBanner}>

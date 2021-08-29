@@ -71,14 +71,19 @@ const CashSuccess: React.FC<Props> = ({navigation, route}) => {
               styles.flexRow,
               {justifyContent: 'center', alignItems: 'center'},
             ]}>
-            <Text
-              style={[
-                styles.SFUITextRegular,
-                styles.colorBlue,
-                styles.textUnderline,
-              ]}>
-              View in Transactions
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('home2');
+              }}>
+              <Text
+                style={[
+                  styles.SFUITextRegular,
+                  styles.colorBlue,
+                  styles.textUnderline,
+                ]}>
+                View in Transactions
+              </Text>
+            </TouchableOpacity>
             <Ionicons name="log-out-outline" color="#007AFF" size={32} />
           </View>
         </View>

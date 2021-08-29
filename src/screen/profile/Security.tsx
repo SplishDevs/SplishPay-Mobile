@@ -32,6 +32,8 @@ const Security: React.FC<IProps> = ({navigation}) => {
   const [changeCreatePin, setChangePin] = useState(false);
   const [isCreatePinLoading, setIsCreatePinLoading] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [isUpdatePIN, setIsUpdatePINLoading] = useState(false);
 
   const [pin1, setPin1] = useState('');
@@ -80,13 +82,16 @@ const Security: React.FC<IProps> = ({navigation}) => {
         `${pin1}${pin2}${pin3}${pin4}`.trim() !==
         `${cpin1}${cpin2}${cpin3}${cpin4}`.trim()
       ) {
-        return helpers.dispayMessage({
-          message: 'PIN mismatch',
-          description: 'Confirm PIN and PIN mismatch',
-          icon: 'info',
-          type: 'info',
-        });
+        // return helpers.dispayMessage({
+        //   message: 'PIN mismatch',
+        //   description: 'Confirm PIN and PIN mismatch',
+        //   icon: 'info',
+        //   type: 'info',
+        // });
+        setErrorMessage('Confirm PIN and PIN do not match');
+        return;
       }
+      setErrorMessage('');
       setIsCreatePinLoading(true);
       await http_service.cereatePIN({pin: `${pin1}${pin2}${pin3}${pin4}`});
       setPin1('');
@@ -99,6 +104,7 @@ const Security: React.FC<IProps> = ({navigation}) => {
       setCPin4('');
       setEnableCreatePin(false);
       setIsCreatePinLoading(false);
+      setErrorMessage('');
       helpers.dispayMessage({
         message: 'PIN created successfully',
         description:
@@ -107,6 +113,8 @@ const Security: React.FC<IProps> = ({navigation}) => {
         type: 'success',
       });
     } catch (error) {
+      setErrorMessage('');
+      setEnableCreatePin(false);
       setIsCreatePinLoading(false);
       helpers.catchHttpError(error);
     }
@@ -150,6 +158,7 @@ const Security: React.FC<IProps> = ({navigation}) => {
     setCPin1('');
     setCPin2('');
     setCPin3('');
+    setErrorMessage('');
     setCPin4('');
 
     setPinb1('');
@@ -252,7 +261,18 @@ const Security: React.FC<IProps> = ({navigation}) => {
               }}
               text="Create Transaction PIN"
             />
-
+            {errorMessage.trim() !== '' && (
+              <TitleText
+                styles={{
+                  textAlign: 'center',
+                  fontSize: 14,
+                  fontWeight: 'normal',
+                  marginVertical: 14,
+                  color: Colors.RED,
+                }}
+                text={errorMessage}
+              />
+            )}
             <View style={{marginBottom: 10}}>
               <TitleText
                 text="PIN"
@@ -384,7 +404,10 @@ const Security: React.FC<IProps> = ({navigation}) => {
             </View>
             <View style={{height: 50}}>
               <Button
-                styles={{backgroundColor: Colors.WHITE}}
+                styles={{
+                  backgroundColor: Colors.WHITE,
+                  borderColor: Colors.RED,
+                }}
                 textColor={Colors.RED}
                 onPress={() => {
                   setEnableCreatePin(false);
@@ -550,9 +573,12 @@ const Security: React.FC<IProps> = ({navigation}) => {
                 text="Save"
               />
             </View>
-            <View style={{height: 50}}>
+            <View style={{height: 40}}>
               <Button
-                styles={{backgroundColor: Colors.WHITE}}
+                styles={{
+                  backgroundColor: Colors.WHITE,
+                  borderColor: Colors.RED,
+                }}
                 textColor={Colors.RED}
                 onPress={() => {
                   setChangePin(false);

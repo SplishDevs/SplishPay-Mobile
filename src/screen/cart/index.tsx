@@ -390,8 +390,7 @@ const Cart: React.FC<Props> = ({
               <TitleText
                 styles={{
                   color: Colors.BLACK,
-                  fontWeight: 'normal',
-                  fontSize: 16,
+                  fontSize: 18,
                 }}
                 text={`${item.name} ${
                   item.extraInfo.length > 0
@@ -400,7 +399,11 @@ const Cart: React.FC<Props> = ({
                 }`}
               />
               <TitleText
-                styles={{fontSize: 18, paddingVertical: 8}}
+                styles={{
+                  fontSize: 16,
+                  paddingVertical: 8,
+                  fontWeight: 'normal',
+                }}
                 text={`N ${helpers.formatAsMoney(item.price)}`}
               />
             </View>
@@ -440,8 +443,15 @@ const Cart: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+      getCart;
+    });
     // clearLocalCart();
+
     getCart();
+
+    return unsubscribe;
   }, []);
 
   const getCartSum = () => {
@@ -478,55 +488,54 @@ const Cart: React.FC<Props> = ({
         </View>
       </View>
 
-      <ScrollView style={[styles.container]}>
-        <View style={{flex: 2}}>
-          <SwipeListView
-            data={cart?.map((item: any) => ({...item, key: item.id}))}
-            renderItem={renderItem}
-            renderHiddenItem={renderHiddenItem}
-            leftOpenValue={0}
-            rightOpenValue={-85}
-            previewRowKey={'0'}
-            previewOpenValue={-40}
-            previewOpenDelay={3000}
-            style={{backgroundColor: Colors.WHITE}}
-            onRowDidOpen={onRowDidOpen}
+      {/* <ScrollView style={[styles.container, {flex: 1}]}> */}
+      <View style={{flex: 1, marginHorizontal: 16}}>
+        <SwipeListView
+          data={cart?.map((item: any) => ({...item, key: item.id}))}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          leftOpenValue={0}
+          rightOpenValue={-85}
+          previewRowKey={'0'}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+          style={{backgroundColor: Colors.WHITE}}
+          onRowDidOpen={onRowDidOpen}
+        />
+      </View>
+      {/* </ScrollView> */}
+      <View
+        style={{
+          justifyContent: 'center',
+          marginBottom: 20,
+          marginTop: 20,
+        }}>
+        {getConnectStatus(selectedPaymentMethod)}
+      </View>
+      <View
+        style={{flexDirection: 'row', marginBottom: 16, marginHorizontal: 16}}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.BLACK,
+            borderColor: Colors.BLACK,
+            width: 60,
+            height: 60,
+            borderRadius: 8,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => {}}>
+          <Ionicons name="cart-outline" size={40} color={Colors.WHITE} />
+        </TouchableOpacity>
+        <View style={{flex: 1, marginLeft: 8, justifyContent: 'space-between'}}>
+          <TitleText text="Total" styles={{color: '#575757', fontSize: 16}} />
+          <TitleText
+            text={`N ${helpers.formatAsMoney(`${getCartSum()}`)}`}
+            styles={{color: Colors.BLACK, fontSize: 16}}
           />
         </View>
+      </View>
 
-        <View
-          style={{
-            justifyContent: 'center',
-            flex: 1,
-            marginBottom: 20,
-            marginTop: 20,
-          }}>
-          {getConnectStatus(selectedPaymentMethod)}
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.BLACK,
-              borderColor: Colors.BLACK,
-              width: 60,
-              height: 60,
-              borderRadius: 8,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => {}}>
-            <Ionicons name="cart-outline" size={40} color={Colors.WHITE} />
-          </TouchableOpacity>
-          <View
-            style={{flex: 1, marginLeft: 8, justifyContent: 'space-between'}}>
-            <TitleText text="Total" styles={{color: '#575757', fontSize: 16}} />
-            <TitleText
-              text={`N ${helpers.formatAsMoney(`${getCartSum()}`)}`}
-              styles={{color: Colors.BLACK, fontSize: 16}}
-            />
-          </View>
-        </View>
-      </ScrollView>
       <View style={styles.lowerBanner}>
         <View style={styles.paymentMethodTextContainer}>
           <Text style={styles.paymentMethodText}>Payment Method</Text>

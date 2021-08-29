@@ -20,6 +20,7 @@ import FirstScreen from './FirstScreen';
 import SecondScreen from './SecondScreen';
 import ThirdScreen from './ThirdScreen';
 import {Colors} from '../../util/Colors';
+import {StackActions} from '@react-navigation/routers';
 
 export const swipeDirections = {
   SWIPE_UP: 'SWIPE_UP',
@@ -73,6 +74,12 @@ const Onboarding: React.FC<Props> = ({navigation}) => {
     );
   };
 
+  const gotToLogin = () => {
+    // navigation.navigate('login')
+    const resetAction = StackActions.push('login');
+    navigation.dispatch(resetAction);
+  };
+
   return (
     <SafeAreaView style={{...backgroundStyle, flex: 1}}>
       <StatusBar
@@ -118,8 +125,7 @@ const Onboarding: React.FC<Props> = ({navigation}) => {
 
               <View style={styles.optionalContainer}>
                 <Text style={styles.optionalText}>Already registered?</Text>
-                <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate('login')}>
+                <TouchableWithoutFeedback onPress={gotToLogin}>
                   <Text style={[styles.optionalText, styles.highlightText]}>
                     Login
                   </Text>

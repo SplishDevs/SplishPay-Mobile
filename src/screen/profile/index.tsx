@@ -96,21 +96,21 @@ const Profile: React.FC<IProps> = props => {
   const handleLogout = async () => {
     try {
       await removeToken();
-      const resetAction = StackActions.push('login');
+      const resetAction = StackActions.push('home');
       navigation.dispatch(resetAction);
-      navigation.dispatch((state: any) => {
-        // Remove the home route from the stack
-        const routes = state.routes.filter((r: any) => {
-          console.log(r);
-          return r.name !== 'appHome';
-        });
+      // navigation.dispatch((state: any) => {
+      //   // Remove the home route from the stack
+      //   const routes = state.routes.filter((r: any) => {
+      //     console.log(r);
+      //     return r.name !== 'appHome';
+      //   });
 
-        return CommonActions.reset({
-          ...state,
-          routes,
-          index: 2,
-        });
-      });
+      //   return CommonActions.reset({
+      //     ...state,
+      //     routes,
+      //     index: 2,
+      //   });
+      // });
 
       // navigation.navigate('login');
 
@@ -218,6 +218,15 @@ const Profile: React.FC<IProps> = props => {
                   text="Customer Support"
                 />
               </View>
+              <View style={{height: 40, marginTop: 10}}>
+                <Button
+                  backgroundColor={Colors.WHITE}
+                  styles={{borderColor: Colors.RED}}
+                  textColor={Colors.RED}
+                  onPress={() => setModalVisible(false)}
+                  text="Cancel"
+                />
+              </View>
             </View>
           </View>
         </Modal>
@@ -269,6 +278,15 @@ const Profile: React.FC<IProps> = props => {
                   onPress={handleLogRequest}
                   isLoading={isLoading}
                   text="Send"
+                />
+              </View>
+              <View style={{height: 40, marginTop: 10}}>
+                <Button
+                  backgroundColor={Colors.WHITE}
+                  styles={{borderColor: Colors.RED}}
+                  textColor={Colors.RED}
+                  onPress={() => setCustomerSupportModal(false)}
+                  text="Cancel"
                 />
               </View>
             </View>

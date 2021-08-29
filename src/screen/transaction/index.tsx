@@ -36,7 +36,15 @@ const Transaction: React.FC<IProps> = ({
   };
   useEffect(() => {
     console.log('called here ooooo');
+    const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+      getTransactions();
+    });
+    // clearLocalCart();
+
     getTransactions();
+
+    return unsubscribe;
   }, []);
   return (
     <SafeAreaView style={{flex: 1}}>

@@ -45,6 +45,7 @@ const Items: React.FC<IProps> = ({
         style={{paddingHorizontal: 16, paddingVertical: 16}}>
         <NoItems
           products={products}
+          navigation={navigation}
           services={services}
           setProducts={setProducts}
           onCreateItem={() => navigation.navigate('addItem')}
@@ -65,6 +66,7 @@ interface INoItemProps {
   services: any;
   startLoading: Function;
   stopLoading: Function;
+  navigation: any;
 }
 
 const NoItems: React.FC<INoItemProps> = ({
@@ -74,10 +76,11 @@ const NoItems: React.FC<INoItemProps> = ({
   setProducts,
   services,
   startLoading,
+  navigation,
   stopLoading,
 }): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
-  const [disAbled, setDisabled] = useState(true);
+  const [disAbled, setDisabled] = useState(false);
   const getProducts = async () => {
     try {
       startLoading();
@@ -87,21 +90,36 @@ const NoItems: React.FC<INoItemProps> = ({
       // await helpers.removeItem('xxx-token');
       // await helpers.removeItem('xxx-user');
 
-      console.log('o =.>', products);
-      // stopLoading();
+      // console.log('o =.>', products);
+      stopLoading();
       setIsLoading(false);
       if (products.length > 0) {
         setProducts(products);
         return onNavigateToItemPage ? onNavigateToItemPage() : null;
       }
-
-      setDisabled(false);
     } catch (error) {
       helpers.catchHttpError(error);
       setIsLoading(false);
+      stopLoading();
     }
   };
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+      try {
+        console.log('call in effect', products.length);
+        if (products.length === 0) {
+          getProducts();
+        } else {
+          onNavigateToItemPage ? onNavigateToItemPage() : null;
+        }
+
+        //
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
     try {
       console.log('call in effect', products.length);
       if (products.length === 0) {
@@ -114,6 +132,8 @@ const NoItems: React.FC<INoItemProps> = ({
     } catch (error) {
       console.log(error);
     }
+
+    return unsubscribe;
   }, [products.length, services.length]);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

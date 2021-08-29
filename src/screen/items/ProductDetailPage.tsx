@@ -107,7 +107,10 @@ const ProductDetail: React.FC<IProps> = ({navigation, route, addToCart}) => {
             </TouchableOpacity>
             <View style={{height: 50, marginTop: 10}}>
               <Button
-                onPress={() => navigation.navigate('purchasePage')}
+                onPress={() => {
+                  addItemToCart(product);
+                  navigation.navigate('purchasePage');
+                }}
                 text="Sell Now"
               />
             </View>

@@ -1,3 +1,4 @@
+import {StackActions} from '@react-navigation/routers';
 import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import helpers from './helpers';
@@ -19,7 +20,8 @@ const AuthState: React.FC<IProps> = ({navigation}) => {
         return navigation.navigate('appHome');
       }
       console.log('3');
-      return navigation.navigate('onBoarding');
+      const resetAction = StackActions.push('onBoarding');
+      navigation.dispatch(resetAction);
     } catch (error) {
       console.log(error);
       return;
@@ -27,7 +29,14 @@ const AuthState: React.FC<IProps> = ({navigation}) => {
   };
   useEffect(() => {
     // console.log('call here in');
-    getAuthState();
+    const unsubscribe = navigation.addListener('focus', (e: any) => {
+      // Prevent default action
+      // e.preventDefault();
+      console.log('lets get authstate');
+      getAuthState();
+      console.log('called here');
+    });
+    return unsubscribe;
   }, [navigation]);
   return <View></View>;
 };
