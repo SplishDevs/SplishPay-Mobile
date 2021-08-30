@@ -65,6 +65,7 @@ const BVNRegistration: React.FC<Props> = ({
           type: 'info',
         });
       }
+      if (isLoading) return;
       setIsLoading(true);
       const response: any = await http_service.registerAccount({
         fullname,

@@ -201,7 +201,7 @@ const Service: React.FC<IServiceProps> = ({
     return null;
   };
   const renderItem = ({item}: {item: any}) => {
-    return <ProductCard item={item} onPress={handleItemOnPress} />;
+    return <ProductCard item={item} onPress={() => null} />;
   };
   return (
     <View style={{paddingHorizontal: 16, paddingVertical: 20, flex: 1}}>
