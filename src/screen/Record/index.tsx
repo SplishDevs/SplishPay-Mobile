@@ -1,6 +1,7 @@
 import {Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
+  FlatList,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -11,21 +12,31 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Button from '../../components/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../util/Colors';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import helpers from '../../helpers';
 import {StackActions} from '@react-navigation/routers';
-
+import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
+const LeftContent = (props: any) => <Avatar.Icon {...props} icon="folder" />;
+import Axios from 'axios';
+import items from '../items';
 interface Props {
   navigation: any;
   cart: any;
   getCart: Function;
+  startLoading: Function;
+  stopLoading: Function;
 }
 
-const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
+const Record: React.FC<Props> = function ({
+  navigation,
+  cart,
+  getCart,
+  startLoading,
+  stopLoading,
+}) {
   const getAuthState = async () => {
     try {
       // await helpers.removeItem('xxx-token');
@@ -72,10 +83,95 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
     getAuthState();
     return unsubscribe;
   }, [navigation]);
+
+  const [pageNumber, setPageNumber] = useState(0);
+  const [pageSize] = useState(20);
+  const [topStories, setTopStories] = useState<any[]>([]);
+  const [isRefreshing, setIsFreshing] = useState(false);
+
+  const loadNewsFeed = async () => {
+    try {
+      startLoading();
+      const response = await Axios.get(
+        'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+      );
+
+      const news = [];
+
+      [].slice;
+
+      const newsToLoad = response.data.slice(
+        pageNumber * pageSize,
+        response.data.length > pageNumber * pageSize + pageSize
+          ? pageNumber * pageSize + pageSize
+          : response.data.length,
+      );
+
+      for (let i = 0; i < newsToLoad.length; i++) {
+        const response2 = await Axios.get(
+          `https://hacker-news.firebaseio.com/v0/item/${newsToLoad[i]}.json?print=pretty`,
+        );
+        news.push(response2.data);
+      }
+      setTopStories(news);
+      stopLoading();
+      console.log(news.slice(0, 10));
+    } catch (error) {
+      console.log('errr: ', error);
+    }
+  };
   useEffect(() => {
-    console.log('calledagain');
-    getCartItems();
-  }, [cart.length]);
+    loadNewsFeed();
+  }, [pageNumber]);
+  const refreshNewsApp = async () => {
+    try {
+      startLoading();
+      const response = await Axios.get(
+        'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+      );
+
+      const news = [];
+
+      [].slice;
+
+      const newsToLoad = response.data.slice(
+        0,
+        response.data.length > pageSize ? pageSize : response.data.length,
+      );
+
+      for (let i = 0; i < newsToLoad.length; i++) {
+        const response2 = await Axios.get(
+          `https://hacker-news.firebaseio.com/v0/item/${newsToLoad[i]}.json?print=pretty`,
+        );
+        news.push(response2.data);
+      }
+      setTopStories(news);
+      stopLoading();
+      setPageNumber(0);
+      setIsFreshing(false);
+      console.log(news.slice(0, 10));
+    } catch (error) {
+      console.log('errr: ', error);
+    }
+  };
+  const renderItem = ({item}: any) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('WebView', item)}
+        style={{marginBottom: 10}}>
+        <Card>
+          <Card.Content>
+            <Paragraph>{item.by}</Paragraph>
+            <Title>{item.title}</Title>
+          </Card.Content>
+
+          <Card.Actions>
+            <Button icon="hexagram-outline">{item.score}</Button>
+          </Card.Actions>
+        </Card>
+      </TouchableOpacity>
+    );
+  };
   const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(cart.length);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -84,195 +180,45 @@ const Record: React.FC<Props> = function ({navigation, cart, getCart}) {
         barStyle={Platform.OS === 'ios' ? 'dark-content' : 'dark-content'}
       />
       <KeyboardAvoidingView style={{flex: 1}} behavior={'height'}>
-        <ScrollView
-          contentContainerStyle={{flexGrow: 1}}
-          style={{backgroundColor: '#fff'}}>
+        <View
+          style={{backgroundColor: '#f3f3f3', paddingVertical: 20, flex: 1}}>
+          <FlatList
+            data={topStories}
+            renderItem={renderItem}
+            keyExtractor={(item: any) => `${item.id}`}
+            style={{flex: 1}}
+            onRefresh={() => refreshNewsApp()}
+            refreshing={isRefreshing}
+          />
           <View>
-            <Text style={styles.titleHeader}>Record Transaction</Text>
-          </View>
-          <View
-            style={{
-              flex: 2,
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              paddingHorizontal: 16,
-            }}>
-            <Text
-              style={{
-                fontFamily: 'SFUIText-Regular',
-                fontSize: 28,
-                fontWeight: 'normal',
-                letterSpacing: 2,
-              }}>
-              {amount.join('').replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            </Text>
-          </View>
-          <View
-            style={[
-              styles.noteContainer,
-              {flexDirection: 'row', justifyContent: 'center'},
-            ]}>
             <View
               style={{
-                flex: 1,
                 flexDirection: 'row',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
+                paddingHorizontal: 20,
+                justifyContent: 'space-between',
               }}>
-              <Text style={{textAlign: 'right', paddingRight: 8}}>Note</Text>
-              <Ionicons name="pencil-outline" size={24} />
+              <Button
+                mode="contained"
+                onPress={() =>
+                  setPageNumber(currentIndex =>
+                    currentIndex - 1 < 0 ? 0 : currentIndex - 1,
+                  )
+                }>
+                Previous
+              </Button>
+              <Button
+                mode="contained"
+                onPress={() =>
+                  setPageNumber(currentIndex =>
+                    currentIndex + 1 > 10 ? 10 : currentIndex + 1,
+                  )
+                }
+                color={Colors.RED}>
+                Next
+              </Button>
             </View>
-            <View style={{flex: 3, marginLeft: 8}}>
-              <TextInput style={{flex: 1, textAlign: 'center'}} />
-            </View>
-            {/* <View style={{flex: 3}}></View> */}
-          </View>
-          <View style={{flex: 3}}>
-            <View style={{flexDirection: 'row', flex: 1}}>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '1'])}>
-                <View>
-                  <Text style={styles.keyPadText}>1</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '2'])}>
-                <View>
-                  <Text style={styles.keyPadText}>2</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '3'])}>
-                <View>
-                  <Text style={styles.keyPadText}>3</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={{flexDirection: 'row', flex: 1}}>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '4'])}>
-                <View>
-                  <Text style={styles.keyPadText}>4</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '5'])}>
-                <View>
-                  <Text style={styles.keyPadText}>5</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '6'])}>
-                <View>
-                  <Text style={styles.keyPadText}>6</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row', flex: 1}}>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '7'])}>
-                <View>
-                  <Text style={styles.keyPadText}>7</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '8'])}>
-                <View>
-                  <Text style={styles.keyPadText}>8</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '9'])}>
-                <View>
-                  <Text style={styles.keyPadText}>9</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row', flex: 1}}>
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '00'])}>
-                <View>
-                  <Text style={styles.keyPadText}>00</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.keyPadStyle}
-                onPress={() => setAmount(amount => [...amount, '0'])}>
-                <View>
-                  <Text style={styles.keyPadText}>0</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.keyPadStyle]}
-                onPress={handleDelete}>
-                <View>
-                  <Text
-                    style={[
-                      styles.keyPadText,
-                      {color: Colors.RED, fontWeight: 'bold'},
-                    ]}>
-                    {' '}
-                    {'<'}{' '}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-        <View style={styles.buttonContainer}>
-          <View style={styles.buttonWrapper}>
-            <Button
-              text="Charge"
-              onPress={() =>
-                navigation.navigate('chargeScreen', {screen: 'charge'})
-              }
-            />
           </View>
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('cart');
-          }}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 16,
-            paddingBottom: 16,
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="cart-outline" size={32} color={Colors.BLACK} />
-            <Text
-              style={{
-                fontFamily: 'SFUIText-Regular',
-                fontSize: 16,
-                fontWeight: 'bold',
-                marginLeft: 4,
-              }}>
-              CART({numberOfItemsInCart})
-            </Text>
-          </View>
-          <Ionicons
-            name="chevron-forward-outline"
-            size={32}
-            color={Colors.BLACK}
-          />
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

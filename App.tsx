@@ -47,6 +47,7 @@ import Customer from './src/screen/profile/Customers';
 import Security from './src/screen/profile/Security';
 import {withNavigation} from '@react-navigation/compat';
 import Cart from './src/screen/cart';
+import WebView from './src/screen/Record/WebView';
 
 const Stack = createStackNavigator();
 
@@ -125,6 +126,22 @@ const ProfileScreen = function () {
   );
 };
 
+const NewScreen = () => {
+  return (
+    <Stack.Navigator initialRouteName="home3">
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="home3"
+        component={HomeStack}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="WebView"
+        component={WebView}
+      />
+    </Stack.Navigator>
+  );
+};
 const AppHome = function (props: any) {
   useFocusEffect(
     React.useCallback(() => {
@@ -147,45 +164,15 @@ const AppHome = function (props: any) {
     <TabNavigator.Navigator initialRouteName="home3">
       <TabNavigator.Screen
         options={{
-          tabBarLabel: 'Wallet',
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="wallet-outline" color={color} size={size} />
-          ),
-        }}
-        name="wallet"
-        component={WalletScreen}
-      />
-      <TabNavigator.Screen
-        options={{
-          tabBarLabel: 'Transactions',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome name="exchange-alt" color={color} size={size} />
-          ),
-        }}
-        name="home2"
-        component={Transaction}
-      />
-      <TabNavigator.Screen
-        options={{
           tabBarLabel: '',
           tabBarIcon: ({color, size}) => (
-            // <Ionicons name="menu" color={color} size={size} />
-            <CustomIcon name="Home" size={size} color={color} />
+            <Ionicons name="home-outline" color={color} size={size} />
           ),
         }}
         name="home3"
-        component={HomeStack}
+        component={NewScreen}
       />
-      <TabNavigator.Screen
-        options={{
-          tabBarLabel: 'Items',
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="list-outline" color={color} size={size} />
-          ),
-        }}
-        name="items"
-        component={ItemScreen}
-      />
+
       <TabNavigator.Screen
         options={{
           tabBarLabel: 'Profile',

@@ -41,11 +41,7 @@ interface Props {
 
 const STATUS_BAR_BACKGROUND = ['#f5b498', '#A471F7', '#f5b498'];
 
-const CARROUSEL_COMPONENT: JSX.Element[] = [
-  <FirstScreen />,
-  <SecondScreen />,
-  <ThirdScreen />,
-];
+const CARROUSEL_COMPONENT: JSX.Element[] = [<FirstScreen />];
 
 const Onboarding: React.FC<Props> = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -94,20 +90,6 @@ const Onboarding: React.FC<Props> = ({navigation}) => {
         <View style={styles.containerStyle}>
           <View style={{flex: 3}}>{CARROUSEL_COMPONENT[currentIndex]}</View>
           <View style={{flex: 2, width: '100%'}}>
-            <View style={styles.indicatorWrapper}>
-              <Indicator
-                onPress={() => setCurrentIndex(0)}
-                isActive={currentIndex === 0}
-              />
-              <Indicator
-                onPress={() => setCurrentIndex(1)}
-                isActive={currentIndex === 1}
-              />
-              <Indicator
-                onPress={() => setCurrentIndex(2)}
-                isActive={currentIndex === 2}
-              />
-            </View>
             <View
               style={{
                 position: 'absolute',

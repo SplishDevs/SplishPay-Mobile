@@ -16,6 +16,7 @@ import Button from '../../components/Button';
 import helpers from '../../helpers';
 import http_service from '../../http_service';
 import PasswordField from '../../components/PasswordField';
+import {executeSql} from '../../database/executeSql';
 // import {useNavigation} from '@react-navigation/core';
 
 const backgroundImage = require('../../../assets/images/bg2.jpg');
@@ -65,12 +66,27 @@ const Login: React.FC<Props> = ({navigation}) => {
         });
       }
       setIsLoading(true);
-      const response: any = await http_service.login({email, password});
-      await helpers.setItem('xxx-token', response.token);
-      await helpers.setItem('xxx-user', JSON.stringify(response.user));
+      const result = await executeSql(
+        `select * from users where email = ? and password = ?`,
+        [email, password],
+      );
+
+      if (result.rows.length === 0) {
+        setIsLoading(false);
+        return helpers.dispayMessage({
+          message: 'Operation failed',
+          description: 'Wrong Email or Password',
+          icon: 'none',
+          type: 'none',
+        });
+      }
       setIsLoading(false);
+      await helpers.setItem('xxx-token', JSON.stringify(result.rows.item(0)));
+      await helpers.setItem('xxx-user', JSON.stringify(result.rows.item(0)));
+
       navigation.navigate('appHome');
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
       helpers.catchHttpError(error);
     }

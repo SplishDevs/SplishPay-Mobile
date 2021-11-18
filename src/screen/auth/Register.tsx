@@ -15,6 +15,10 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import helpers from '../../helpers';
 import PasswordField from '../../components/PasswordField';
+import Button from '../../components/Button';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Colors} from '../../util/Colors';
+import {executeSql} from '../../database/executeSql';
 
 interface Props {
   navigation: any;
@@ -30,47 +34,77 @@ const Register: React.FC<Props> = ({
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConFirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const handleNextButtonCLick = async () => {
+    try {
+      if (
+        fullname.trim() === '' ||
+        email.trim() === '' ||
+        phoneNumber.trim() === '' ||
+        password.trim() === ''
+      ) {
+        return helpers.dispayMessage({
+          message: 'Validation Failed',
+          icon: 'info',
+          type: 'info',
+          description: 'Please fill all fields',
+        });
+      }
+      if (!helpers.validateEmail(email)) {
+        return helpers.dispayMessage({
+          message: 'Email Address Validation Failed',
+          description: 'Email Provided is not valid',
+          icon: 'danger',
+          type: 'danger',
+        });
+      }
+      if (password !== confirmPassword) {
+        return helpers.dispayMessage({
+          message: 'Passwords Mismatch',
+          description: 'Password and Confirm Password do not match',
+          icon: 'danger',
+          type: 'danger',
+        });
+      }
+      // if (!helpers.strongPasswordCheck(password)) {
+      //   return helpers.dispayMessage({
+      //     message: 'Password Strength Validation Failed',
+      //     icon: 'danger',
+      //     type: 'danger',
+      //     description: `Password must have atleast one lowercase, atleast one uppercase,atleast one special character and must be atleast 8 characters`,
+      //   });
+      // }
+      setIsLoading(true);
+      const result = await executeSql(`select * from users where email = ?`, [
+        email,
+      ]);
 
-  const handleNextButtonCLick = () => {
-    if (
-      fullname.trim() === '' ||
-      email.trim() === '' ||
-      phoneNumber.trim() === '' ||
-      password.trim() === ''
-    ) {
-      return helpers.dispayMessage({
-        message: 'Validation Failed',
-        icon: 'info',
-        type: 'info',
-        description: 'Please fill all fields',
+      if (result.rows.length > 0) {
+        setIsLoading(false);
+        return helpers.dispayMessage({
+          message: 'Operation failed',
+          description: 'Email already exits',
+          icon: 'info',
+          type: 'info',
+        });
+      }
+      await executeSql(
+        `insert into users(name, email, password,phoneNumber )values(?,?,?,?)`,
+        [fullname, email, password, phoneNumber],
+      );
+      setIsLoading(false);
+      helpers.dispayMessage({
+        message: 'Operation successful',
+        description: 'Account created successfully',
+        icon: 'success',
+        type: 'success',
       });
+    } catch (error) {
+      console.log('error: is : ', error);
+      setIsLoading(false);
+      helpers.catchHttpError(error);
     }
-    if (!helpers.validateEmail(email)) {
-      return helpers.dispayMessage({
-        message: 'Email Address Validation Failed',
-        description: 'Email Provided is not valid',
-        icon: 'danger',
-        type: 'danger',
-      });
-    }
-    if (password !== confirmPassword) {
-      return helpers.dispayMessage({
-        message: 'Passwords Mismatch',
-        description: 'Password and Confirm Password do not match',
-        icon: 'danger',
-        type: 'danger',
-      });
-    }
-    // if (!helpers.strongPasswordCheck(password)) {
-    //   return helpers.dispayMessage({
-    //     message: 'Password Strength Validation Failed',
-    //     icon: 'danger',
-    //     type: 'danger',
-    //     description: `Password must have atleast one lowercase, atleast one uppercase,atleast one special character and must be atleast 8 characters`,
-    //   });
-    // }
-    registerProfileLoadedPageOne({fullname, email, phoneNumber, password});
-    navigation.navigate('businessDetailRegister');
+    // navigation.navigate('businessDetailRegister');
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -80,8 +114,19 @@ const Register: React.FC<Props> = ({
       />
       <View style={styles.containerStyle}>
         <ScrollView style={{flex: 1}}>
-          <View style={styles.titleWrapper}>
-            <TitleText text="Personal Details" />
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{marginLeft: 8}}>
+              <Ionicons
+                color={Colors.BLACK}
+                name="chevron-back-outline"
+                size={40}
+              />
+            </TouchableOpacity>
+            <View style={[styles.titleWrapper, {justifyContent: 'center'}]}>
+              <TitleText text="Personal Details" />
+            </View>
           </View>
           <View>
             <View style={styles.inputWrapper}>
@@ -127,15 +172,14 @@ const Register: React.FC<Props> = ({
               />
             </View>
           </View>
+          <View style={{height: 60, marginTop: 20}}>
+            <Button
+              isLoading={isLoading}
+              text="Register"
+              onPress={handleNextButtonCLick}
+            />
+          </View>
         </ScrollView>
-        <View style={{marginBottom: 50}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('login');
-            }}>
-            <Text style={styles.loginText}>Log In</Text>
-          </TouchableOpacity>
-        </View>
       </View>
       {/* <View style={{marginTop: 16}}>
         <TouchableOpacity
@@ -145,7 +189,6 @@ const Register: React.FC<Props> = ({
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
       </View> */}
-      <FAB iconName="chevron-forward-outline" onPress={handleNextButtonCLick} />
     </SafeAreaView>
   );
 };

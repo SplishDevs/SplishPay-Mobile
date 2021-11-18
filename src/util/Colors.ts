@@ -5,7 +5,7 @@ export enum Colors {
   GRAY_2 = '#808080',
   GRAY_3 = '#F2F2F2',
   BLUE = '#007AFF',
-  RED = '#FF7266',
+  RED = '#ff0000',
   BACKGROUND_COLOR = '#FAFAFA',
   GREEN = '#32BA30',
   YELLOW = '#FFE569',

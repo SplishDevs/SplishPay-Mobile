@@ -1,6 +1,8 @@
 import {StackActions} from '@react-navigation/routers';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {View} from 'react-native';
+import {getDBConnection} from './database';
+import {initializeApp} from './database/initApp';
 import helpers from './helpers';
 
 interface IProps {
@@ -27,6 +29,17 @@ const AuthState: React.FC<IProps> = ({navigation}) => {
       return;
     }
   };
+  const loadDataCallback = useCallback(async () => {
+    try {
+      await initializeApp();
+      console.log('app loaded');
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  useEffect(() => {
+    loadDataCallback();
+  }, [loadDataCallback]);
   useEffect(() => {
     // console.log('call here in');
     const unsubscribe = navigation.addListener('focus', (e: any) => {

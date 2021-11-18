@@ -24,7 +24,7 @@ interface Props {
   inputStyle?: TextStyle;
   editable?: boolean;
   autoFocus?: boolean;
-
+  selectionColor?: string;
   value?: string;
   containerStyle?: ViewStyle;
   inputRef?: LegacyRef<TextInput>;
@@ -80,6 +80,7 @@ const TextField: React.FC<Props> = ({
               keyboardType={props.keyboardType ? props.keyboardType : 'default'}
               secureTextEntry={props.obscureText}
               value={props?.value}
+              selectionColor={props?.selectionColor}
               ref={props.inputRef}
               style={
                 props.color

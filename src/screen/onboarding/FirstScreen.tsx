@@ -53,10 +53,12 @@ const FirstScreen = () => {
       </View>
       <View style={styles.onBoardingTextContatiner}>
         <View>
-          <Text style={styles.onBoardingText}>Sign up to do it the easy</Text>
+          <Text style={styles.onBoardingText}>
+            Get the latest news and stories
+          </Text>
         </View>
         <View>
-          <Text style={styles.onBoardingText}> Way</Text>
+          <Text style={styles.onBoardingText}> on your finger tips</Text>
         </View>
       </View>
     </View>
